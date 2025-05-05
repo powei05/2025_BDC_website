@@ -17,6 +17,7 @@ export default function Home() {
   return (
     <div style={{ overflowX: 'hidden' }}>
       <Container className="container-home">
+        
         <Row>
           <Col lg={12} xs={12}>
             <motion.div
@@ -30,6 +31,39 @@ export default function Home() {
               <p>This is your landing page. Add your animations and content here.</p>
             </motion.div>
           </Col>
+        </Row>
+
+        <Row className="align-items-center my-5">
+          <Col lg={6}>
+            <motion.img
+              src="../../public/dancer.png"
+              alt="Sample"
+              style={{ width: '100%', height: 'auto' }}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            />
+          </Col>
+          <Col lg={6}>
+            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+              <h2>Innovation Meets Simplicity</h2>
+              <p>Use this section to explain your project with clear and engaging text.</p>
+            </motion.div>
+          </Col>
+        </Row>
+        <Row className="justify-content-center text-center my-5">
+          {['../../public/dancer.png', '../../public/dancer.png', '../../public/dancer.png'].map((src, i) => (
+            <Col lg={4} xs={12} key={i}>
+              <motion.img
+                src={`${src}`}
+                alt={`image-${i}`}
+                style={{ width: '80%', marginBottom: '20px' }}
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: i * 0.3 }}
+              />
+            </Col>
+          ))}
         </Row>
 
         <Row>

@@ -30,10 +30,12 @@ export function Header({ title, lead }) {
         const parallaxOffset = scrollTop * parallaxSpeed;
         setParallaxTransform(`translateY(${parallaxOffset}px)`);
 
-        const color1Start = '#109ed1';
-        const color1End = '#0c265f';
-        const color2Start = '#0c265f';
-        const color2End = '#109ed1';
+        const color1Start = '#109ed1'; // Light blue
+        const color1End = '#0c265f'; // Dark blue
+        const color2Start = '#0c265f'; // Reversed dark blue
+        const color2End = '#109ed1'; // Reversed light blue
+
+
 
         const startColor = interpolateColor(color1Start, color2Start, scrollFraction);
         const endColor = interpolateColor(color1End, color2End, scrollFraction);
