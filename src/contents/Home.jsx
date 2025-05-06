@@ -22,7 +22,7 @@ export default function Home() {
           <Col lg={12} xs={12}>
             <motion.div
               ref={textRef}
-              className="animated-text-home"
+              className="animated-text-home2"
               variants={containerVariants}
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
