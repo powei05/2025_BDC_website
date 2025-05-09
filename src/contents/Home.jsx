@@ -2,6 +2,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import "../containers/Bootstrapcss.css";
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import ParallaxComponent from '../components/ParallaxComponent.';
+
 
 export default function Home() {
   const { ref: textRef, inView: isInView } = useInView({
@@ -17,12 +19,12 @@ export default function Home() {
   return (
     <div style={{ overflowX: 'hidden' }}>
       <Container className="container-home">
-        
+      <ParallaxComponent />
         <Row>
           <Col lg={12} xs={12}>
             <motion.div
               ref={textRef}
-              className="animated-text-home2"
+              className="animated-text-home"
               variants={containerVariants}
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
@@ -89,6 +91,8 @@ export default function Home() {
             </motion.div>
           </Col>
         </Row>
+
+       
       </Container>
     </div>
   );

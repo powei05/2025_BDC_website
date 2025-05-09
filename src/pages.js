@@ -1,7 +1,7 @@
 import {
     Home,
     Description,
-    TeamMembers
+    TeamMembers,
   } from "./contents";
   
   const Pages = [
@@ -19,7 +19,7 @@ import {
       path: "/description",
       component: Description,
       lead: "",
-      icon: "https://static.igem.wiki/teams/5112/icons/description-2x.png",
+      icon: "../../public/reporting.png",
     },
     {
       name: "Team Members",
@@ -27,8 +27,23 @@ import {
       path: "/team-members",
       component: TeamMembers,
       lead: "",
-      icon: "https://static.igem.wiki/teams/5112/icons/team-2x.png",
+      icon: "../../public/group-chat.png",
     },
+
+
+    // {
+    //   name: "Project",
+    //   folder: [
+    //     {
+    //       name: "Description",
+    //       title: "Project Description",
+    //       path: "/description",
+    //       component: Description,
+    //       lead: "",
+    //       icon: "https://static.igem.wiki/teams/5112/icons/description-2x.png",
+    //     },
+    //     ]
+    // }
   ];
   
   export default Pages;

@@ -1,10 +1,5 @@
 /* Bootstrapcss.css */
-@font-face {
-  font-family: 'Baloo 2';
-  src: url(/src/Fonts/Baloo2-VariableFont_wght.ttf) format('truetype');
-  font-weight: 400 800; /* Define the weight range (adjust based on your font) */
 
-}
 
 body,html {
 
