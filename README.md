@@ -59,17 +59,7 @@ http://localhost:5173
 
 ### 7. Project Structure
 
-2025_BDC_website/
-├── public/              # Static assets
-├── src/
-│   ├── assets/          # Images and media
-│   ├── components/      # Reusable UI components
-│   ├── pages/           # Page-level components
-│   └── main.jsx         # Application entry point
-├── .eslintrc.cjs        # ESLint configuration
-├── index.html           # HTML template
-├── package.json         # Project metadata and dependencies
-└── vite.config.js       # Vite configuration
+![Project Structure](./img/structure.png)
 
 ### 8. Maintainers
 
