@@ -2,7 +2,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import "../containers/Bootstrapcss.css";
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import ParallaxComponent from '../components/ParallaxComponent.';
+// import ParallaxComponent from '../components/ParallaxComponent.';
+import { Theater } from '../components';
 
 
 export default function Home() {
@@ -19,7 +20,10 @@ export default function Home() {
   return (
     <div style={{ overflowX: 'hidden' }}>
       <Container className="container-home">
-      <ParallaxComponent />
+
+        <Theater />        
+        
+
         <Row>
           <Col lg={12} xs={12}>
             <motion.div

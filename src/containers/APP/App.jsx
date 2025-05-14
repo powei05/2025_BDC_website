@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Footer, Header, Navbar, NotFound } from "../../components";
+import { Footer, Header, Navbar, NotFound } from "../../components/Index";
 import { getPathMapping, stringToSlug } from "../../utils";
 import { useEffect } from "react";
 

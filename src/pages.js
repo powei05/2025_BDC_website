@@ -2,7 +2,7 @@ import {
     Home,
     Description,
     TeamMembers,
-  } from "./contents";
+  } from "./contents/Index";
   
   const Pages = [
     {

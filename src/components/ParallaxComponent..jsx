@@ -1,6 +1,6 @@
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { useEffect, useState } from 'react';
-import "../containers/Bootstrapcss.css"; // CSS 路徑可依需求調整
+import "../containers/Bootstrapcss.css"; 
 
 function ParallaxComponent() {
   const [isMobile, setIsMobile] = useState(false);
