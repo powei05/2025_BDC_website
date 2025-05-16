@@ -1,8 +1,9 @@
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import "../containers/Bootstrapcss.css";
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import ParallaxComponent from '../components/ParallaxComponent.';
+import { Link } from 'react-router-dom';
 
 
 export default function Home() {
@@ -31,6 +32,23 @@ export default function Home() {
             >
               <h1>Welcome</h1>
               <p>This is your landing page. Add your animations and content here.</p>
+              
+              {/* Demo Button */}
+              <Link to="/demo">
+                <Button 
+                  variant="warning" 
+                  size="lg" 
+                  className="mt-3"
+                  style={{ 
+                    fontWeight: 'bold', 
+                    padding: '10px 30px',
+                    fontSize: '1.2rem',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                  }}
+                >
+                  Demo
+                </Button>
+              </Link>
             </motion.div>
           </Col>
         </Row>

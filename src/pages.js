@@ -2,6 +2,7 @@ import {
     Home,
     Description,
     TeamMembers,
+    Demo,
   } from "./contents";
   
   const Pages = [
@@ -28,6 +29,14 @@ import {
       component: TeamMembers,
       lead: "",
       icon: "../../public/group-chat.png",
+    },
+    {
+      name: "Demo",
+      title: "服裝偵測演示",
+      path: "/demo",
+      component: Demo,
+      lead: "體驗即時衣服移動偵測",
+      icon: "../../public/reporting.png",
     },
 
 
