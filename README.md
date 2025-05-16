@@ -8,8 +8,6 @@ This is the official frontend codebase for the **2025 BioDesign Challenge** webs
 - **Vite** – Lightning-fast build tool and development server
 - **ESLint** – Linting for code quality and consistency
 - **Node.js** – JavaScript runtime environment
-- **TensorFlow.js** - Machine learning library for clothing detection
-- **Docker** - Containerization for easy deployment
 
 ---
 
@@ -29,7 +27,7 @@ git clone https://github.com/powei05/2025_BDC_website.git
 cd 2025_BDC_website
 ```
 
-### 3. Install Node.js (if you haven't already)
+### 3. Install Node.js (if you haven’t already)
 
 You can download Node.js from the official website: https://nodejs.org
 
@@ -58,43 +56,6 @@ Once the server is running, open your browser and go to:
 ```bash
 http://localhost:5173
 ```
-
-## 🐳 Docker Deployment
-
-You can also run this application using Docker:
-
-### 1. Build and run with Docker Compose
-
-```bash
-docker-compose up -d
-```
-
-This will build the Docker image and start the container. The application will be available at:
-
-```
-http://localhost
-```
-
-### 2. Stop the Docker container
-
-```bash
-docker-compose down
-```
-
-## 📷 Clothing Detection Demo
-
-This project includes a clothing detection feature that demonstrates real-time clothing movement detection:
-
-- Uses your device's camera to identify clothing items
-- Highlights clothing areas when movement is detected
-- Changes color (to yellow) in real-time when movement is detected
-
-To try this feature:
-
-1. Click the "Demo" button on the homepage or navigate to `/demo`
-2. Allow camera access when prompted
-3. Click "Start Detection"
-4. Move to see the clothing detection in action
 
 ### 7. Project Structure
 
