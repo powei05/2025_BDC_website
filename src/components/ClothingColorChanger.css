@@ -1,0 +1,229 @@
+.clothing-color-changer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.clothing-color-changer h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.start-btn, .stop-btn, .color-btn, .disabled-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.start-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.stop-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.disabled-btn {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+.start-btn:hover {
+  background-color: #45a049;
+}
+
+.stop-btn:hover {
+  background-color: #d32f2f;
+}
+
+.color-options {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.color-btn {
+  width: 80px;
+  height: 36px;
+  border: 2px solid transparent;
+}
+
+.color-btn.active {
+  border: 2px solid #333;
+}
+
+.color-btn.red {
+  background-color: #f44336;
+  color: white;
+}
+
+.color-btn.yellow {
+  background-color: #FFD700;
+  color: black;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  background-color: #000;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.output-canvas {
+  width: 100%;
+  height: 480px;
+  background-color: #222;
+  display: block;
+  object-fit: contain;
+}
+
+.instructions {
+  text-align: center;
+  padding: 20px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.instructions p {
+  margin: 0 0 10px 0;
+  color: #555;
+}
+
+.error-message {
+  margin: 15px 0;
+  padding: 12px 15px;
+  border-radius: 4px;
+  text-align: center;
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+.interrupted-error-help {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 4px;
+  color: #856404;
+  text-align: left;
+}
+
+.interrupted-error-help p {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.interrupted-error-help ol {
+  margin-left: 20px;
+  margin-bottom: 0;
+}
+
+.interrupted-error-help li {
+  margin-bottom: 5px;
+}
+
+.debug-btn {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.debug-btn:hover {
+  background-color: #138496;
+}
+
+.debug-info {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  color: #333;
+  text-align: left;
+}
+
+.debug-info pre {
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 0.85em;
+}
+
+.model-status {
+  text-align: center;
+  padding: 8px;
+  margin-bottom: 15px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.loading-model-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.loading-model-overlay p {
+  margin: 5px 0;
+}
+
+.camera-tips {
+  background-color: #e7f5fe;
+  border: 1px solid #b8e3ff;
+  border-radius: 4px;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.camera-tips h3 {
+  color: #0066cc;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.camera-tips ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.camera-tips li {
+  margin-bottom: 8px;
+  color: #333;
+} 
