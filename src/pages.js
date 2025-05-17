@@ -2,8 +2,11 @@ import {
     Home,
     Description,
     TeamMembers,
-    DemoPage,
+    Pov,
+     DemoPage,
   } from "./contents";
+
+
   
   const Pages = [
     {
@@ -38,7 +41,14 @@ import {
       lead: "Try our real-time clothing color changer!",
       icon: "../../public/webcam.png",
     },
-
+    {
+      name: "POV",
+      title: "POV",
+      path: "/pov",
+      component: Pov,
+      lead: "",
+      icon: "../../public/group-chat.png",
+    },
 
     // {
     //   name: "Project",
