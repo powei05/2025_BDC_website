@@ -46,6 +46,13 @@ const App = () => {
     }
   }, [currentPath, location.hash]);
 
+    useEffect(() => {
+
+  }, [currentPath, location.hash]);
+
+
+  const barePaths = ["/", "/pov"];
+
   return (
     <>
       <Navbar />
@@ -58,7 +65,8 @@ const App = () => {
               path={path}
               element={
                 <>
-                  {currentPath !== "/" && (
+                  
+                  {!barePaths.includes(currentPath) && (
                     <Header title={title || ""} lead={lead || ""} />
                   )}
                   <div className="container">

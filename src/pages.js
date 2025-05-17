@@ -2,7 +2,9 @@ import {
     Home,
     Description,
     TeamMembers,
+    Pov,
   } from "./contents/Index";
+
   
   const Pages = [
     {
@@ -29,7 +31,14 @@ import {
       lead: "",
       icon: "../../public/group-chat.png",
     },
-
+    {
+      name: "POV",
+      title: "POV",
+      path: "/pov",
+      component: Pov,
+      lead: "",
+      icon: "../../public/group-chat.png",
+    },
 
     // {
     //   name: "Project",
