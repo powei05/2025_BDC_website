@@ -51,7 +51,7 @@ export function Header({ title, lead }) {
 
   return (
     <div>
-      <div
+      {/* <div
         className="banner-header"
         ref={bannerRef}
         style={{
@@ -62,7 +62,7 @@ export function Header({ title, lead }) {
       >
         <h1>{title}</h1>
       </div>
-      <p className="lead-text">{lead}</p>
+      <p className="lead-text">{lead}</p> */}
     </div>
   );
 }
