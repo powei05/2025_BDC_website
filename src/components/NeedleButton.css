@@ -1,0 +1,96 @@
+
+.needle-container {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #fdfeec, #fee9d1);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+
+.needle-svg {
+  width: 100vw;
+  height: 100vh;
+}
+
+
+.needle-svg #acbutton {
+  pointer-events: all;
+  cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: center center;
+
+  transition: transform 0.3s ease, fill 0.3s ease;
+
+}
+
+.needle-svg #acbutton:hover {
+  transform: scale(1.08);
+  fill: #fff9c4; 
+}
+
+
+.needle-svg #mid-path,
+.needle-svg #end-path,
+.needle-svg #middle-path {
+  fill: none;
+  stroke: black;
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+#arrow1 { animation: float 3s ease-in-out infinite alternate; }
+#arrow2 { animation: float 4s ease-in-out infinite alternate 0.5s; }
+#arrow3 { animation: float 5s ease-in-out infinite alternate 1s; }
+@keyframes float {
+  0%   { transform: translateY(0px) rotate(0deg); }
+  50%  { transform: translateY(-8px) rotate(2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+
+
+#needle {
+  transform-box: fill-box;
+
+  transform-origin: 50% 100%;
+
+  animation: needleSway 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes needleSway {
+  0%   { transform: rotate(-1deg); }
+  50%  { transform: rotate( 1deg); }
+  100% { transform: rotate(-1deg); }
+}
+
+
+
+#yarnball {
+  transform-box: fill-box;
+  /* 以圖形中心做上下飄動 */
+  transform-origin: 50% 50%;
+  animation: imageFloat 6s ease-in-out infinite alternate;
+}
+
+@keyframes imageFloat {
+  0%   { transform: translateY(0px)  scale(1   ); }
+  50%  { transform: translateY(-8px) scale(1.02); }
+  100% { transform: translateY(0px)  scale(1   ); }
+}
+
+#needleNline_end {
+  transform-box: fill-box;
+  /* 以圖形中心做上下飄動 */
+  transform-origin: 50% 50%;
+  animation: imageFloat 6s ease-in-out infinite alternate;
+}
+
+@keyframes imageFloat {
+  0%   { transform: translateY(0px)  scale(1   ); }
+  50%  { transform: translateY(-8px) scale(1.02); }
+  100% { transform: translateY(0px)  scale(1   ); }
+}

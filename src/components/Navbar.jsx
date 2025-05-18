@@ -141,31 +141,31 @@ export default function Navbar() {
   });
 
   return (
-    <div></div>
-    // <BootstrapNavbar expand="lg" className={`navbar ${isCollapsed ? 'collapsed' : 'expanded'}`} fixed="top">
-    //   <Container>
-    //     <BootstrapNavbar.Brand>
-    //       <Link to="/">
-    //         <img
-    //           src="../../public/txt_icon.png"
-    //           alt="Team Logo"
-    //           className="team-logo"
-    //         />
-    //       </Link>
-    //     </BootstrapNavbar.Brand>
-    //     <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
-    //     <BootstrapNavbar.Collapse id="basic-navbar-nav" ref={navbarCollapseRef}>
-    //       <Nav className="left-aligned">{pages}</Nav>
-    //     </BootstrapNavbar.Collapse>
-    //     <div id="scroll-progress" className="scroll-progress" ref={progressBarRef}>
-    //       <img
-    //         src="../../public/dancer.png"
-    //         alt="Progress Icon"
-    //         ref={progressImageRef}
-    //         style={{ filter: 'bluescale(100%) brightness(50%)', left: '0' }}
-    //       />
-    //     </div>
-    //   </Container>
-    // </BootstrapNavbar>
+    
+    <BootstrapNavbar expand="lg" className={`navbar ${isCollapsed ? 'collapsed' : 'expanded'}`} fixed="top">
+      <Container>
+        <BootstrapNavbar.Brand>
+          <Link to="/">
+            <img
+              src="../../public/txt_icon.png"
+              alt="Team Logo"
+              className="team-logo"
+            />
+          </Link>
+        </BootstrapNavbar.Brand>
+        <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
+        <BootstrapNavbar.Collapse id="basic-navbar-nav" ref={navbarCollapseRef}>
+          <Nav className="left-aligned">{pages}</Nav>
+        </BootstrapNavbar.Collapse>
+        <div id="scroll-progress" className="scroll-progress" ref={progressBarRef}>
+          <img
+            src="../../public/dancer.png"
+            alt="Progress Icon"
+            ref={progressImageRef}
+            style={{ filter: 'bluescale(100%) brightness(50%)', left: '0' }}
+          />
+        </div>
+      </Container>
+    </BootstrapNavbar>
   );
 }
