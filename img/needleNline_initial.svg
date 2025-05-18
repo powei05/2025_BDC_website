@@ -1,7 +1,7 @@
 <svg width="1440" height="1024" viewBox="0 0 1440 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Desktop - 1">
-<rect width="1440" height="1024" fill="white"/>
-<rect id="acbutton" x="672" y="227" width="190" height="120" rx="30" fill="white" fill-opacity="0.5"/>
+<rect width="1440" height="1024" fill="none"/>
+<rect id="acbutton" x="672" y="227" width="190" height="120" rx="30" fill="none" fill-opacity="0.5"/>
 <g id="needle">
 <g id="Fe">
 <g id="Group 1">

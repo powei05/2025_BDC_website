@@ -1,7 +1,7 @@
 <svg width="1440" height="1024" viewBox="0 0 1440 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
 
 <g id="needleNline_end">
-<rect width="1440" height="1024" fill="white"/>
+<rect width="1440" height="1024" fill="none"/>
 <path id="middle-path" d="M447 183C447 183 472.149 176.141 486 176.001C500.215 175.858 520 189.001 520 189.001" stroke="black" stroke-width="10" stroke-linecap="round"/>
 <g id="needle_end">
 <g id="Fe">
