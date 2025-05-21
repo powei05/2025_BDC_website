@@ -22,27 +22,27 @@ export default function NeedleButton({ onComplete }) {
   // === mid-path ===
   const lenMid = mid.getTotalLength();
   mid.style.strokeDasharray = lenMid;
-  mid.style.strokeDashoffset = -lenMid;      // 隱藏
+  mid.style.strokeDashoffset = lenMid;      // 隱藏
   mid.style.transition = 'none';             // 先清除 transition
   mid.getBoundingClientRect();               // 强制重排
-  mid.style.transition = 'stroke-dashoffset 2s linear';
+  mid.style.transition = 'stroke-dashoffset 0.5s linear';
 
   // === middle-path ===
   const lenMiddle = middle.getTotalLength();
   middle.style.strokeDasharray = lenMiddle;
-  middle.style.strokeDashoffset = -lenMiddle;
+  middle.style.strokeDashoffset = lenMiddle;
   middle.style.transition = 'none';
   middle.getBoundingClientRect();
-  let duration = 2*(lenMiddle/lenMid);
+  let duration = 0.5*(lenMiddle/lenMid);
   middle.style.transition = `stroke-dashoffset ${duration}s linear`;
 
   // === end-path ===
   const lenEnd = end.getTotalLength();
   end.style.strokeDasharray = lenEnd;
-  end.style.strokeDashoffset = -lenEnd;
+  end.style.strokeDashoffset = lenEnd;
   end.style.transition = 'none';
   end.getBoundingClientRect();
-  duration = 2*(lenEnd/lenMid);
+  duration = 0.4*(lenEnd/lenMid);
   end.style.transition = `stroke-dashoffset ${duration}s linear`;
 
     // 播放 mid-path

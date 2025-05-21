@@ -1,0 +1,18 @@
+<svg width="1440" height="1024" viewBox="0 0 1440 1024" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect width="1440" height="1024" fill="black"/>
+<g id="Desktop - 1" clip-path="url(#clip0_24_101)">
+<rect width="1440" height="1024" fill="white"/>
+<path id="Polygon1" d="M720 364L1112.31 889.75H327.69L720 364Z" fill="#F8D390"/>
+<rect id="Dance_Studio1" x="493" y="63" width="454" height="317" fill="url(#pattern0_24_101)"/>
+<rect id="Factory1" x="-67" y="611" width="560" height="391" fill="url(#pattern1_24_101)"/>
+<rect id="Theater1" x="974" y="676" width="466" height="326" fill="url(#pattern2_24_101)"/>
+<g id="S2F">
+<path id="needlepath" d="M695.962 390.28C698.962 390.28 523.462 352.78 610.462 499.78C664.726 591.468 594.129 642.447 523.462 616.28C450.629 592.28 368.962 636.78 431.462 739.28C477.641 815.014 418.962 874.947 349.462 845.28" stroke="#6A9DC8" stroke-width="5"/>
+<g id="whole_needle">
+<path id="needle" d="M366.313 839.955C370.147 848.357 420.591 965.878 423.862 981.569C410.972 967.618 346.775 859.021 342.941 850.619C339.108 842.217 341.232 833.018 347.686 830.074C354.14 827.129 362.48 831.553 366.313 839.955Z" fill="#D9D9D9"/>
+<ellipse id="Ellipse 2" cx="356.128" cy="848.692" rx="5" ry="10.5" transform="rotate(-23.4491 356.128 848.692)" fill="black"/>
+</g>
+</g>
+</g>
+
+</svg>

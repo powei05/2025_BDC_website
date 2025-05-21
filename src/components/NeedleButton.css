@@ -37,8 +37,8 @@
 .needle-svg #end-path,
 .needle-svg #middle-path {
   fill: none;
-  stroke: black;
-  stroke-width: 10;
+  stroke: #430003;
+  stroke-width: 4;
   stroke-linecap: round;
 }
 
