@@ -71,7 +71,6 @@
 
 #yarnball {
   transform-box: fill-box;
-  /* 以圖形中心做上下飄動 */
   transform-origin: 50% 50%;
   animation: imageFloat 6s ease-in-out infinite alternate;
 }
@@ -84,7 +83,7 @@
 
 #needleNline_end {
   transform-box: fill-box;
-  /* 以圖形中心做上下飄動 */
+  
   transform-origin: 50% 50%;
   animation: imageFloat 6s ease-in-out infinite alternate;
 }

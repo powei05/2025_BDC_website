@@ -9,7 +9,7 @@ export default function NeedleButton({ onComplete }) {
   const [phase, setPhase] = useState('init'); // init → midAnim → middleAnim → endAnim
   const containerRef = useRef(null);
 
-  // 初始階段：隱藏所有 path
+  // initial phase hide all path
   useEffect(() => {
     if (phase !== 'midAnim') return;
     const svg = containerRef.current.querySelector('svg');
@@ -45,14 +45,14 @@ export default function NeedleButton({ onComplete }) {
   duration = 0.4*(lenEnd/lenMid);
   end.style.transition = `stroke-dashoffset ${duration}s linear`;
 
-    // 播放 mid-path
+    // play mid-path
     requestAnimationFrame(() => {
       mid.style.strokeDashoffset = '0';
     });
     mid.addEventListener('transitionend', () => setPhase('middleAnim'), { once: true });
   }, [phase]);
 
-  // 第二階段播放 middle-path
+  // second phase play middle-path
   useEffect(() => {
     if (phase !== 'middleAnim') return;
     const svg = containerRef.current.querySelector('svg');
@@ -65,7 +65,7 @@ export default function NeedleButton({ onComplete }) {
     middle.addEventListener('transitionend', () => setPhase('endAnim'), { once: true });
   }, [phase]);
 
-  // 第三階段播放 end-path
+  // third phase play end-path
   useEffect(() => {
     if (phase !== 'endAnim') return;
     const svg = containerRef.current.querySelector('svg');
@@ -78,7 +78,7 @@ export default function NeedleButton({ onComplete }) {
     end.addEventListener('transitionend', () => onComplete(), { once: true });
   }, [phase, onComplete]);
 
-  // 點擊紫圈啟動動畫
+  // button click event
   const handleClick = (e) => {
     if (phase === 'init' && e.target.id === 'acbutton') {
       setPhase('midAnim');
