@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { NotFound } from "../../components/Index";
+import { NotFound } from "../../components/index";
 import { getPathMapping, stringToSlug } from "../../utils";
 import { useEffect } from "react";
 
@@ -21,7 +21,7 @@ const App = () => {
     document.title = `${title || ""} | ${import.meta.env.VITE_TEAM_NAME} - ${import.meta.env.VITE_TEAM_YEAR}`;
   }, [title]);
 
-  // ✅ 新的 scroll 行為（無偏移）
+  //  新的 scroll 行為（無偏移）
   useEffect(() => {
     if (!location.hash) {
       window.scrollTo(0, 0);

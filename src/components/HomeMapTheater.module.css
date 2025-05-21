@@ -14,7 +14,7 @@
 }
 
 
-:global(#Fac_bg) {
+:global(#theater_bg_theater) {
   pointer-events: all;
   cursor: pointer;
     transform-box: fill-box;
@@ -23,7 +23,7 @@
 
   transition: transform 0.2s ease, fill 0.2s ease;
 }
-:global(#Fac_bg:hover) {
+:global(#theater_bg_theater:hover) {
     transform: scale(1.08);
     fill: #5494e7; 
 }

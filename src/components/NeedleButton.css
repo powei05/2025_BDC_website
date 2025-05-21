@@ -2,7 +2,6 @@
 .needle-container {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #fdfeec, #fee9d1);
   overflow: hidden;
   display: flex;
   justify-content: center;

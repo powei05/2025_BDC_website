@@ -1,10 +1,16 @@
+
+import { path } from "framer-motion/client";
 import {
     Home,
     Description,
     TeamMembers,
     Pov,
-     DemoPage,
+    DemoPage,
+    Factory,
+    DanceStudio,
+    MaterialIntro,
   } from "./contents";
+
 
 
   
@@ -49,6 +55,30 @@ import {
       lead: "",
       icon: "../../public/group-chat.png",
     },
+    {
+      name: "Factory",
+      title: "Factory",
+      path: "/factory",
+      component: Factory,
+      lead: "",
+      icon: "../../public/group-chat.png",
+    },
+    {
+      name: "Dance Studio",
+      title: "Dance Studio",
+      path: "/dancestudio",
+      component: DanceStudio,
+      lead: "",
+      icon: "../../public/group-chat.png",
+    },
+    {
+      name: "Material Introduction",
+      title: "Material Introduction",
+      path: "/materialintro",
+      component: MaterialIntro,
+      lead: "",
+      icon: "../../public/group-chat.png",
+    }
 
     // {
     //   name: "Project",

@@ -3,11 +3,12 @@
 
 body,html {
   
-  background: linear-gradient(135deg, #fdfeec, #fee9d1);   
-  /* font-family: 'Baloo 2', sans-serif; */
-  word-spacing: 0.14em;
-  scroll-behavior: smooth;
-
+  background-image: url('../../img/paperbackgrond.jpg');
+  background-repeat: repeat;       
+  background-size: cover;             
+  background-position: center center; 
+  padding: 0;
+  margin: 0;
 }
 
 

@@ -4,5 +4,11 @@ export { default as Navbar } from './Navbar';
 export { default as NotFound } from './NotFound';
 export { default as ClothingColorChanger } from './ClothingColorChanger';
 export {default as NeedleButton} from './NeedleButton';
-
+export {default as HomeMapDS} from './HomeMapDS';
 export {default as HomeMap} from './HomeMap';
+export {default as Concept} from './Concept';
+export {default as BodyAnimation} from './BodyAnimation';
+export {default as Clce} from './Clce';
+export {default as Gel} from './Gel';
+export {default as Cotton} from './Cotton';
+export {default as HomeMapTheater} from './HomeMapTheater';

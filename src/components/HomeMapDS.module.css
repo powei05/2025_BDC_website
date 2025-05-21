@@ -14,7 +14,7 @@
 }
 
 
-:global(#Fac_bg) {
+:global(#DS_bg_Studio) {
   pointer-events: all;
   cursor: pointer;
     transform-box: fill-box;
@@ -23,9 +23,9 @@
 
   transition: transform 0.2s ease, fill 0.2s ease;
 }
-:global(#Fac_bg:hover) {
+:global(#DS_bg_Studio:hover) {
     transform: scale(1.08);
-    fill: #5494e7; 
+    fill: #f184ea; 
 }
 
 

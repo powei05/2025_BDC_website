@@ -1,11 +1,10 @@
 import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './HomeMap.module.css';
-import S2Fnew from '../../img/S2F_new.svg?react';
+import styles from './HomeMapTheater.module.css';
+import S2Fnew from '../../img/F2T.svg?react';
 import theaterGif from '../../img/theater.gif';
 import facGif     from '../../img/fac.gif';
 import dsGif      from '../../img/ds.gif';
-
 import gsap from 'gsap';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 
@@ -22,7 +21,7 @@ export default function HomeMap() {
     if (!svgContainer) return;
 
     // initial phase hide all path
-    const needlePath = svgContainer.querySelector('#needlepath');
+    const needlePath = svgContainer.querySelector('#needlepath_theater');
     if (needlePath) {
       const length = needlePath.getTotalLength();
       needlePath.style.strokeDasharray = length;
@@ -30,7 +29,7 @@ export default function HomeMap() {
     }
 
     // initial phase hide whole needle
-    const wholeNeedle = svgContainer.querySelector('#whole_needle_homemap');
+    const wholeNeedle = svgContainer.querySelector('#whole_needle_theater');
     if (wholeNeedle) gsap.set(wholeNeedle, { autoAlpha: 0 });
   }, []);
     
@@ -39,13 +38,13 @@ export default function HomeMap() {
     if (!svgContainer) return;
 
     // 隱藏 path & wholeNeedle
-    const needlePath = svgContainer.querySelector('#needlepath');
+    const needlePath = svgContainer.querySelector('#needlepath_theater');
     if (needlePath) {
       const length = needlePath.getTotalLength();
       needlePath.style.strokeDasharray = length;
       needlePath.style.strokeDashoffset = length;
     }
-    const wholeNeedle = svgContainer.querySelector('#whole_needle_homemap');
+    const wholeNeedle = svgContainer.querySelector('#whole_needle_theater');
     if (wholeNeedle) gsap.set(wholeNeedle, { autoAlpha: 0 });
   }, []);
 
@@ -64,9 +63,9 @@ export default function HomeMap() {
 
       // 要對應的 id 與 CSS class
       const map = [
-        ['theater_bg', styles.theater],
-        ['Fac_bg',     styles.fac],
-        ['DS_bg',      styles.ds],
+        ['theater_bg_theater', styles.theater],
+        ['Fac_bg_theater',     styles.fac],
+        ['DS_bg_theater',      styles.ds],
       ];
 
       map.forEach(([rectId, cls]) => {
@@ -96,18 +95,18 @@ export default function HomeMap() {
   }, []);
 
   const handleClick = e => {
-    if (phase !== 'init' || e.target.id !== 'Fac_bg') return;
+    if (phase !== 'init' || e.target.id !== 'theater_bg_theater') return;
     setPhase('animating');
 
     const svgContainer = containerRef.current;
-    const needlePath    = svgContainer.querySelector('#needlepath');
-    const wholeNeedle   = svgContainer.querySelector('#whole_needle_homemap');
-    const facBg         = svgContainer.querySelector('#Fac_bg');
+    const needlePath    = svgContainer.querySelector('#needlepath_theater');
+    const wholeNeedle   = svgContainer.querySelector('#whole_needle_theater');
+    const theaterBg         = svgContainer.querySelector('#theater_bg_theater');
 
-    if (!needlePath || !wholeNeedle || !facBg) return;
+    if (!needlePath || !wholeNeedle || !theaterBg) return;
 
-    // set factory bbox position
-    const bbox = facBg.getBBox();
+    // set theater bbox position
+    const bbox = theaterBg.getBBox();
     const svgEl = svgContainer.querySelector('#S2Fsvg');
     const vb = svgEl.viewBox.baseVal;
     const originX = ((bbox.x + bbox.width/2) / vb.width)  * 100 + '%';
@@ -117,7 +116,7 @@ export default function HomeMap() {
     const tl = gsap.timeline({
       onComplete: () => {
         // navigate('/factory');
-        navigate('/materialintro');
+        navigate('/movietheater');
       }
     });
 
