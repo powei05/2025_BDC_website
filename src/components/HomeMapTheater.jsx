@@ -37,7 +37,7 @@ export default function HomeMap() {
     const svgContainer = containerRef.current;
     if (!svgContainer) return;
 
-    // 隱藏 path & wholeNeedle
+    // hide path & wholeNeedle
     const needlePath = svgContainer.querySelector('#needlepath_theater');
     if (needlePath) {
       const length = needlePath.getTotalLength();
@@ -49,19 +49,20 @@ export default function HomeMap() {
   }, []);
 
   // ------------------------------------------------
-  // 2) 新增：動態讀取 <rect> 來定位三個 GIF
+  // 2) find rect position
+  //    and set gif position
   // ------------------------------------------------
   useEffect(() => {
     const svgContainer = containerRef.current;
     if (!svgContainer) return;
 
     const updateGifs = () => {
-      // SVG 在 viewport 的絕對位置
+     
       const svgRect = svgContainer
         .querySelector('#S2Fsvg')
         .getBoundingClientRect();
 
-      // 要對應的 id 與 CSS class
+      
       const map = [
         ['theater_bg_theater', styles.theater],
         ['Fac_bg_theater',     styles.fac],
@@ -116,7 +117,7 @@ export default function HomeMap() {
     const tl = gsap.timeline({
       onComplete: () => {
         // navigate('/factory');
-        navigate('/movietheater');
+        navigate('/pov');
       }
     });
 
@@ -129,7 +130,7 @@ export default function HomeMap() {
           path: needlePath,
           align: needlePath,
           autoRotate: false,
-          alignOrigin: [0.35, 0.1]
+          alignOrigin: [0.75, 0.08]
         }
       }, 0)
       .to(needlePath, {
@@ -141,12 +142,12 @@ export default function HomeMap() {
     // 2. zoomin factory
     tl.to(svgContainer, {
       duration: 1,
-      scale: 2,                    // 放大到 2 倍，你可調整
+      scale: 2,                   
       transformOrigin: `${originX} ${originY}`,
       ease: 'power1.inOut'
-    }, '>-0.2');  // 在前一段動畫快結束時就開始
+    }, '>-0.2');  
 
-    // 設置容器的 CSS，確保 transform 可用
+    
     gsap.set(svgContainer, { transformOrigin: '0 0' });
   };
 

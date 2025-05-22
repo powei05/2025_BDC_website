@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 export default function Gel({ onNext }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div >
       <button
-        style={{ padding: '8px 16px', fontSize: '16px' }}
+        
         onClick={onNext}
       >
         GEL
@@ -10,3 +11,6 @@ export default function Gel({ onNext }) {
     </div>
   );
 }
+Gel.propTypes = {
+  onNext: PropTypes.func.isRequired,
+};

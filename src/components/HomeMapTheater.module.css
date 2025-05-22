@@ -68,3 +68,24 @@ pointer-events: none;
   object-fit: contain;     
   object-position: center; 
 }
+
+@keyframes arrowFloat {
+  0%   { transform: translateY(0)   rotate(0deg); }
+  50%  { transform: translateY(-30px) rotate(15deg); }
+  100% { transform: translateY(0)   rotate(0deg); }
+}
+
+/* 用 :global() 把 id 规则变成全局 */
+:global(#arrow1_theater),
+:global(#arrow2_theater) {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+:global(#arrow1_theater) {
+  animation: arrowFloat 3s ease-in-out 0s infinite alternate;
+}
+
+:global(#arrow2_theater) {
+  animation: arrowFloat 4s ease-in-out 0.5s infinite alternate;
+}

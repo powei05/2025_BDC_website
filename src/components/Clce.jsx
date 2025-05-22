@@ -1,10 +1,10 @@
-
+import PropTypes from 'prop-types';
 
 export default function Clce({ onNext }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div >
       <button
-        style={{ padding: '8px 16px', fontSize: '16px' }}
+      
         onClick={onNext}
       >
         CLCE
@@ -12,3 +12,7 @@ export default function Clce({ onNext }) {
     </div>
   );
 }
+
+Clce.propTypes = {
+  onNext: PropTypes.func.isRequired,
+};

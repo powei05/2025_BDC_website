@@ -1,9 +1,9 @@
-
+import PropTypes from 'prop-types';
 export default function Cotton({ onNext }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div>
       <button
-        style={{ padding: '8px 16px', fontSize: '16px' }}
+        
         onClick={onNext}
       >
         COTTON
@@ -11,3 +11,7 @@ export default function Cotton({ onNext }) {
     </div>
   );
 }
+
+Cotton.propTypes = {
+  onNext: PropTypes.func.isRequired,
+};
