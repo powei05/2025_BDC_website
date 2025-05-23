@@ -1,5 +1,5 @@
 
-import { path } from "framer-motion/client";
+
 import {
     Home,
     Description,
@@ -9,6 +9,7 @@ import {
     Factory,
     DanceStudio,
     MaterialIntro,
+    Overview
   } from "./contents";
 
 
@@ -78,7 +79,16 @@ import {
       component: MaterialIntro,
       lead: "",
       icon: "../../public/group-chat.png",
-    }
+    },
+    {
+      name: "Overview",
+      title: "Overview",
+      path: "/overview",
+      component: Overview,
+      lead: "",
+      icon: "../../public/group-chat.png",
+    },
+
 
     // {
     //   name: "Project",

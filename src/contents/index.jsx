@@ -6,5 +6,5 @@ export { default as DemoPage } from './DemoPage.jsx';
 export {default as Factory} from './Factory.jsx';
 export {default as DanceStudio} from './DanceStudio.jsx';
 export {default as MaterialIntro} from './MaterialIntro.jsx';
-  
+export {default as Overview} from './Overview.jsx';
 

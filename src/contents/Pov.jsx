@@ -95,12 +95,8 @@ Movie.propTypes = {
 function Dashboard() {
   return (
     <section className="screen full dashboard-screen">
-      <Link to="/" className="action-button">
-        More Information
-      </Link>
-      
-      <Link to="/teamMembers" className="action-button">
-        team
+      <Link to="/overview" className="action-button">
+        Overview
       </Link>
     </section>
   );

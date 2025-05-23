@@ -12,3 +12,4 @@ export {default as Clce} from './Clce';
 export {default as Gel} from './Gel';
 export {default as Cotton} from './Cotton';
 export {default as HomeMapTheater} from './HomeMapTheater';
+export {default as HomeMapEnd} from './HomeMapEnd';

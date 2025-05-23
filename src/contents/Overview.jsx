@@ -1,20 +1,20 @@
 // src/components/Factory.jsx
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { BodyAnimation, HomeMap } from '../components';
-import styles from './Factory.module.css';   
+import { BodyAnimation, HomeMapEnd } from '../components';
+import styles from './DanceStudio.module.css';   
 
-export default function Factory() {
+export default function Overview() {
   const [showMap, setShowMap] = useState(false);
 
  
   useEffect(() => {
-    const timer = setTimeout(() => setShowMap(true), 5000);
+    const timer = setTimeout(() => setShowMap(true), 1000);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className={styles.factoryContainer}> 
+    <div className={styles.overviewContainer}> 
       <AnimatePresence exitBeforeEnter>
         {!showMap ? (
          
@@ -36,7 +36,7 @@ export default function Factory() {
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
           >
-            <HomeMap />
+            <HomeMapEnd />
           </motion.div>
         )}
       </AnimatePresence>

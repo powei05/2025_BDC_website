@@ -18,7 +18,7 @@ export default function MaterialIntro() {
 
   return (
     <div className={styles.MaterialContainer}>
-      {/* 如果不是最後一個階段，就傳 onNext 給子組件 */}
+
       {phaseIndex < phases.length - 1 
         ? <Current onNext={nextPhase} /> 
         : <Current />
