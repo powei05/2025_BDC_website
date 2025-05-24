@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { NotFound } from "../../components/index";
+import { NotFound, Navbar } from "../../components";
 import { getPathMapping, stringToSlug } from "../../utils";
 import { useEffect } from "react";
 
@@ -36,6 +36,8 @@ const App = () => {
   }, [currentPath, location.hash]);
 
   return (
+    <>
+    <Navbar />
     <Routes>
       {Object.entries(pathMapping).map(
         ([path, { component: Component }]) => (
@@ -44,6 +46,7 @@ const App = () => {
       )}
       <Route path="*" element={<NotFound />} />
     </Routes>
+  </>
   );
 };
 
