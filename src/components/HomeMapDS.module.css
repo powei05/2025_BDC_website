@@ -3,7 +3,7 @@
   position: relative;
   inset: 0;
   overflow: hidden;
-  z-index: 500; /* lowered to stay below navbar */
+  z-index: 9999; /* lowered to stay below navbar */
   pointer-events: none; /* disable pointer interactions */
 }
 

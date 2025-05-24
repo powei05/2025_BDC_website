@@ -5,9 +5,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 500; /* lowered to avoid blocking navbar */
+  z-index: 9999; /* lowered to avoid blocking navbar */
   pointer-events: none; /* disables interaction by default */
 }
+
+/* fixes the overflow and image resizing problem */
+html, body {
+  overflow: hidden;
+} 
+
 
 .needle-svg {
   width: 100vw;

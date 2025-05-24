@@ -3,7 +3,7 @@
   position: relative;
   inset: 0;
   overflow: hidden;
-  z-index: 500; /* lowered so it doesn’t block navbar */
+  z-index: 9999; /* lowered so it doesn’t block navbar */
   pointer-events: none; /* disables interaction by default */
 }
 

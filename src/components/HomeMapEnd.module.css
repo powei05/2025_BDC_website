@@ -3,7 +3,7 @@
   position: relative;
   inset: 0;
   overflow: hidden;
-  z-index: 500; /* lowered to avoid blocking UI */
+  z-index: 9999; /* lowered to avoid blocking UI */
   pointer-events: none; /* disable interactions by default */
 }
 
