@@ -1,38 +1,16 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function DotNavbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const closeTimeoutRef = useRef(null);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-
-  // ✅ Define navigation links (cleaned up)
   const navPages = [
-    {
-      name: "Home",
-      path: "/",
-      icon: "https://static.igem.wiki/teams/5112/icons/description-2x.png",
-    },
-    {
-      name: "Studio",
-      path: "/dancestudio",
-      icon: "/reporting.png", // ✅ fixed path
-    },
-    {
-      name: "Factory",
-      path: "/factory",
-      icon: "/group-chat.png",
-    },
-    {
-      name: "Theatre",
-      path: "/pov",
-      icon: "/group-chat.png",
-    },
-    {
-      name: "Description",
-      path: "/description",
-      icon: "/group-chat.png",
-    },
+    { name: "Home", path: "/", icon: "https://static.igem.wiki/teams/5112/icons/description-2x.png" },
+    { name: "Studio", path: "/dancestudio", icon: "/reporting.png" },
+    { name: "Factory", path: "/factory", icon: "/group-chat.png" },
+    { name: "Theatre", path: "/pov", icon: "/group-chat.png" },
+    { name: "Description", path: "/description", icon: "/group-chat.png" },
   ];
 
   const styles = {
@@ -69,6 +47,17 @@ export default function DotNavbar() {
     hover: { backgroundColor: '#f0f0f0' },
   };
 
+  const handleMouseEnter = () => {
+    clearTimeout(closeTimeoutRef.current);
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    closeTimeoutRef.current = setTimeout(() => {
+      setIsOpen(false);
+    }, 100); // 200ms delay before closing
+  };
+
   const navItems = navPages.map((item, index) => (
     <li
       key={index}
@@ -85,8 +74,12 @@ export default function DotNavbar() {
   ));
 
   return (
-    <div style={styles.container}>
-      <div style={styles.dot} onClick={toggleMenu}></div>
+    <div
+      style={styles.container}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div style={styles.dot}></div>
       {isOpen && <ul style={styles.dropdown}>{navItems}</ul>}
     </div>
   );
