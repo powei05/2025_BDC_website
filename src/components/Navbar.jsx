@@ -1,3 +1,109 @@
+import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+
+export default function DotNavbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const closeTimeoutRef = useRef(null);
+
+  const navPages = [
+    { name: "Home", path: "/", icon: "../../img/bodyanimation.gif" },
+    { name: "Studio", path: "/dancestudio", icon: "../../img/ds.gif" },
+    { name: "Factory", path: "/factory", icon: "../../img/fac.gif" },
+    { name: "Theatre", path: "/pov", icon: "../../img/theater.gif" },
+    { name: "Description", path: "/description", icon: "../../img/conceptpage.gif" },
+  ];
+
+  const styles = {
+    container: {
+      position: 'fixed',
+      top: '20px',
+      right: '20px',
+      zIndex: 1000,
+    },
+    iconButton: {
+      width: '100px',   // Resize as needed
+      height: 'auto',
+      cursor: 'pointer',
+      display: 'block',
+    },
+    dropdown: {
+      position: 'absolute',
+      top: '45px',
+      right: 0,
+      background: 'white',
+      border: '1px solid #ddd',
+      boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+      listStyle: 'none',
+      padding: '10px 0',
+      margin: 0,
+      borderRadius: '6px',
+      minWidth: '160px',
+    },
+    item: {
+      padding: '8px 16px',
+      cursor: 'pointer',
+    },
+    link: {
+      textDecoration: 'none',
+      color: '#333',
+      display: 'flex',
+      alignItems: 'center',
+    },
+    icon: {
+      width: '20px',
+      height: '20px',
+      marginRight: '8px',
+    },
+    hover: {
+      backgroundColor: '#f0f0f0',
+    },
+  };
+
+  const handleMouseEnter = () => {
+    clearTimeout(closeTimeoutRef.current);
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    closeTimeoutRef.current = setTimeout(() => {
+      setIsOpen(false);
+    }, 100); // Slight delay before auto-closing
+  };
+
+  const navItems = navPages.map((item, index) => (
+    <li
+      key={index}
+      style={styles.item}
+      onClick={() => setIsOpen(false)}
+      onMouseOver={(e) => (e.currentTarget.style.backgroundColor = styles.hover.backgroundColor)}
+      onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '')}
+    >
+      <Link to={item.path} style={styles.link}>
+        {item.icon && <img src={item.icon} alt={item.name} style={styles.icon} />}
+        {item.name}
+      </Link>
+    </li>
+  ));
+
+  return (
+    <div
+      style={styles.container}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <img
+        src="txt_icon.png" // Uses uploaded image
+        alt="Petrichor Menu"
+        style={styles.iconButton}
+      />
+      {isOpen && <ul style={styles.dropdown}>{navItems}</ul>}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------
+
+
 // import { useState, useRef } from 'react';
 // import { Link } from 'react-router-dom';
 
@@ -70,7 +176,7 @@
 //   const handleMouseLeave = () => {
 //     closeTimeoutRef.current = setTimeout(() => {
 //       setIsOpen(false);
-//     }, 200); // Delay before auto-closing
+//     }, 100); // Delay before auto-closing
 //   };
 
 //   const navItems = navPages.map((item, index) => (
@@ -103,111 +209,3 @@
 //     </div>
 //   );
 // }
-
-
-// ----------------------------------------
-
-
-import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
-
-export default function DotNavbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const closeTimeoutRef = useRef(null);
-
-  const navPages = [
-    { name: "Home", path: "/", icon: "https://static.igem.wiki/teams/5112/icons/description-2x.png" },
-    { name: "Studio", path: "/dancestudio", icon: "/reporting.png" },
-    { name: "Factory", path: "/factory", icon: "/group-chat.png" },
-    { name: "Theatre", path: "/pov", icon: "/group-chat.png" },
-    { name: "Description", path: "/description", icon: "/group-chat.png" },
-  ];
-
-  const styles = {
-    container: {
-      position: 'fixed',
-      top: '20px',
-      right: '20px',
-      zIndex: 1000,
-    },
-    iconButton: {
-      width: '100px',   // Resize as needed
-      height: 'auto',
-      cursor: 'pointer',
-      display: 'block',
-    },
-    dropdown: {
-      position: 'absolute',
-      top: '45px',
-      right: 0,
-      background: 'white',
-      border: '1px solid #ddd',
-      boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-      listStyle: 'none',
-      padding: '10px 0',
-      margin: 0,
-      borderRadius: '6px',
-      minWidth: '160px',
-    },
-    item: {
-      padding: '8px 16px',
-      cursor: 'pointer',
-    },
-    link: {
-      textDecoration: 'none',
-      color: '#333',
-      display: 'flex',
-      alignItems: 'center',
-    },
-    icon: {
-      width: '16px',
-      height: '16px',
-      marginRight: '8px',
-    },
-    hover: {
-      backgroundColor: '#f0f0f0',
-    },
-  };
-
-  const handleMouseEnter = () => {
-    clearTimeout(closeTimeoutRef.current);
-    setIsOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    closeTimeoutRef.current = setTimeout(() => {
-      setIsOpen(false);
-    }, 100); // Slight delay before auto-closing
-  };
-
-  const navItems = navPages.map((item, index) => (
-    <li
-      key={index}
-      style={styles.item}
-      onClick={() => setIsOpen(false)}
-      onMouseOver={(e) => (e.currentTarget.style.backgroundColor = styles.hover.backgroundColor)}
-      onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '')}
-    >
-      <Link to={item.path} style={styles.link}>
-        {item.icon && <img src={item.icon} alt={item.name} style={styles.icon} />}
-        {item.name}
-      </Link>
-    </li>
-  ));
-
-  return (
-    <div
-      style={styles.container}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <img
-        src="txt_icon.png" // Uses uploaded image
-        alt="Petrichor Menu"
-        style={styles.iconButton}
-      />
-      {isOpen && <ul style={styles.dropdown}>{navItems}</ul>}
-    </div>
-  );
-}
-
