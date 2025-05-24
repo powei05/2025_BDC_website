@@ -1,6 +1,6 @@
 // src/components/BodyAnimation.jsx
 import styles from './BodyAnimation.module.css';
-import transitionGif from '../../img/BodyAnimation.gif?react';
+import transitionGif from '../../img/body_animation.gif?react';
 
 export default function BodyAnimation() {
   return (

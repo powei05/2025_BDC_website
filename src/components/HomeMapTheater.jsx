@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './HomeMapTheater.module.css';
-import S2Fnew from '../../img/F2T.svg?react';
+import S2Fnew from '../../img/f2t.svg?react';
 import theaterGif from '../../img/theater.gif';
 import facGif     from '../../img/fac.gif';
 import dsGif      from '../../img/ds.gif';

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './NeedleButton.css';
+import './NeedleButton.module.css';
 
 import InitialSVG from '../../img/needleNline_initial.svg?react';
 import EndSVG from '../../img/needleNline_end.svg?react';
