@@ -8,7 +8,7 @@ export default function DanceStudio() {
   const [showAnimation, setShowAnimation] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowAnimation(false), 5000);
+    const timer = setTimeout(() => setShowAnimation(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 

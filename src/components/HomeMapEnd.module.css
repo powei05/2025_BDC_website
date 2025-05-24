@@ -3,90 +3,87 @@
   position: relative;
   inset: 0;
   overflow: hidden;
-  z-index: 9999;
+  z-index: 9999; /* lowered to avoid blocking UI */
+  pointer-events: none; /* disable interactions by default */
 }
-
 
 .svg {
   width: 100vw;
   height: 100vh;
-  pointer-events: none; 
+  pointer-events: none; /* ensure full-screen SVG doesn't block anything */
 }
 
-
+/* ✅ Interactive area only */
 :global(#DS_bg_end) {
   pointer-events: all;
   cursor: pointer;
-    transform-box: fill-box;
+  transform-box: fill-box;
   transform-origin: center;
-
-
   transition: transform 0.2s ease, fill 0.2s ease;
 }
+
 :global(#DS_bg_end:hover) {
-    transform: scale(1.08);
-    fill: #dd6aec; 
+  transform: scale(1.08);
+  fill: #dd6aec;
 }
 
-
+/* Overlay container — non-interactive */
 .gifContainer {
   position: absolute;
   overflow: hidden;
-pointer-events: none;
+  pointer-events: none;
 }
 
-/* theater_bg: x=1114/1440, y=670/1024, w=334/1440, h=310/1024 */
+/* Positioned elements — layout only */
 .theater {
-  left:65%;
-  top:  65%;
-  width:  23.19%;
+  left: 65%;
+  top: 65%;
+  width: 23.19%;
   height: 30.27%;
 }
 
-/* Fac_bg: x=16, y=705, w=320, h=285 */
 .fac {
   left: 12%;
-  top:  65%;
-  width:  22.22%;
+  top: 65%;
+  width: 22.22%;
   height: 27.83%;
 }
 
-
-
-/* DS_bg: x=560, y=70, w=320, h=310 */
 .ds {
   left: 38.89%;
-  top:   6.84%;
-  width:  22.22%;
+  top: 6.84%;
+  width: 22.22%;
   height: 30.27%;
 }
 
-/*  */
+/* Image styling — non-interactive */
 .gifContainer img {
   width: 100%;
   height: 100%;
-  object-fit: contain;     
-  object-position: center; 
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
 }
 
-
+/* Floating arrow animations */
 @keyframes arrowFloat1 {
-  0%   { transform: translateY(0)   rotate(0deg); }
+  0%   { transform: translateY(0) rotate(0deg); }
   50%  { transform: translateY(70px) rotate(10deg); }
-  100% { transform: translateY(0)   rotate(0deg); }
+  100% { transform: translateY(0) rotate(0deg); }
 }
 
 @keyframes arrowFloat2 {
-  0%   { transform: translateY(0)   rotate(0deg); }
+  0%   { transform: translateY(0) rotate(0deg); }
   50%  { transform: translateY(-30px) rotate(15deg); }
-  100% { transform: translateY(0)   rotate(0deg); }
+  100% { transform: translateY(0) rotate(0deg); }
 }
 
-/* 用 :global() 把 id 规则变成全局 */
+/* Arrows — animated, not interactive */
 :global(#arrow1),
 :global(#arrow2) {
   transform-box: fill-box;
   transform-origin: center;
+  pointer-events: none; /* ensures they don't block clicks */
 }
 
 :global(#arrow1) {
