@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url("../../img/ConceptPage.gif");
+  background-image: url("../../img/conceptpage.gif");
   background-size: contain; /* 或者試試 cover，根據需求選擇 */
   background-position: center;
   background-repeat: no-repeat; /* 防止圖片重複 */
