@@ -2,7 +2,7 @@ import  { useRef, useState, useEffect } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 import * as bodyPix from '@tensorflow-models/body-pix';
-import './ClothingColorChanger.module.css';
+import './ClothingColorChanger.css';
 
 // 添加用於較老瀏覽器的 getUserMedia polyfill
 const setupMediaDevicesPolyfill = () => {
