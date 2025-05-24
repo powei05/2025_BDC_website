@@ -5,32 +5,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 500; /* lowered to avoid blocking navbar */
+  pointer-events: none; /* disables interaction by default */
 }
-
 
 .needle-svg {
   width: 100vw;
   height: 100vh;
+  pointer-events: none; /* disables interaction by default */
 }
 
-
+/* ✅ Enable interaction ONLY on the button */
 .needle-svg #acbutton {
   pointer-events: all;
   cursor: pointer;
   transform-box: fill-box;
   transform-origin: center center;
-
   transition: transform 0.3s ease, fill 0.3s ease;
-
 }
 
 .needle-svg #acbutton:hover {
   transform: scale(1.08);
-  fill: #fff9c4; 
+  fill: #fff9c4;
 }
 
-
+/* Path visuals — not interactive */
 .needle-svg #mid-path,
 .needle-svg #end-path,
 .needle-svg #middle-path {
@@ -38,25 +37,35 @@
   stroke: #430003;
   stroke-width: 4;
   stroke-linecap: round;
+  pointer-events: none;
 }
 
-#arrow1 { animation: float 3s ease-in-out infinite alternate; }
-#arrow2 { animation: float 4s ease-in-out infinite alternate 0.5s; }
-#arrow3 { animation: float 5s ease-in-out infinite alternate 1s; }
+/* Decorative floating arrows — not interactive */
+#arrow1, #arrow2, #arrow3 {
+  animation: float 3s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+#arrow2 {
+  animation-delay: 0.5s;
+}
+
+#arrow3 {
+  animation-delay: 1s;
+}
+
 @keyframes float {
   0%   { transform: translateY(0px) rotate(0deg); }
   50%  { transform: translateY(-8px) rotate(2deg); }
   100% { transform: translateY(0px) rotate(0deg); }
 }
 
-
-
+/* Animated needle — not interactive */
 #needle {
   transform-box: fill-box;
-
   transform-origin: 50% 100%;
-
   animation: needleSway 2.5s ease-in-out infinite alternate;
+  pointer-events: none;
 }
 
 @keyframes needleSway {
@@ -65,29 +74,17 @@
   100% { transform: rotate(-1deg); }
 }
 
-
-
-#yarnball {
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-  animation: imageFloat 6s ease-in-out infinite alternate;
-}
-
-@keyframes imageFloat {
-  0%   { transform: translateY(0px)  scale(1   ); }
-  50%  { transform: translateY(-8px) scale(1.02); }
-  100% { transform: translateY(0px)  scale(1   ); }
-}
-
+/* Yarn ball floating — not interactive */
+#yarnball,
 #needleNline_end {
   transform-box: fill-box;
-  
   transform-origin: 50% 50%;
   animation: imageFloat 6s ease-in-out infinite alternate;
+  pointer-events: none;
 }
 
 @keyframes imageFloat {
-  0%   { transform: translateY(0px)  scale(1   ); }
+  0%   { transform: translateY(0px)  scale(1); }
   50%  { transform: translateY(-8px) scale(1.02); }
-  100% { transform: translateY(0px)  scale(1   ); }
+  100% { transform: translateY(0px)  scale(1); }
 }

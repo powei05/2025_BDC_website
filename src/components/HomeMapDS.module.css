@@ -3,68 +3,64 @@
   position: relative;
   inset: 0;
   overflow: hidden;
-  z-index: 9999;
+  z-index: 500; /* lowered to stay below navbar */
+  pointer-events: none; /* disable pointer interactions */
 }
-
 
 .svg {
   width: 100vw;
   height: 100vh;
-  pointer-events: none; 
+  pointer-events: none; /* disable pointer interactions */
 }
 
-
+/* Make this one element clickable */
 :global(#DS_bg_Studio) {
-  pointer-events: all;
+  pointer-events: all; /* re-enable interactions */
   cursor: pointer;
-    transform-box: fill-box;
+  transform-box: fill-box;
   transform-origin: center;
-
-
   transition: transform 0.2s ease, fill 0.2s ease;
 }
+
 :global(#DS_bg_Studio:hover) {
-    transform: scale(1.08);
-    fill: #f184ea; 
+  transform: scale(1.08);
+  fill: #f184ea;
 }
 
-
+/* All gif containers are non-interactive */
 .gifContainer {
   position: absolute;
   overflow: hidden;
-pointer-events: none;
+  pointer-events: none;
 }
 
-/* theater_bg: x=1114/1440, y=670/1024, w=334/1440, h=310/1024 */
+/* Element positioning (for layout only, still non-interactive) */
 .theater {
-  left:65%;
-  top:  65%;
-  width:  23.19%;
+  left: 65%;
+  top: 65%;
+  width: 23.19%;
   height: 30.27%;
 }
 
-/* Fac_bg: x=16, y=705, w=320, h=285 */
 .fac {
   left: 12%;
-  top:  65%;
-  width:  22.22%;
+  top: 65%;
+  width: 22.22%;
   height: 27.83%;
 }
 
-
-
-/* DS_bg: x=560, y=70, w=320, h=310 */
 .ds {
   left: 38.89%;
-  top:   6.84%;
-  width:  22.22%;
+  top: 6.84%;
+  width: 22.22%;
   height: 30.27%;
 }
 
-/*  */
 .gifContainer img {
   width: 100%;
   height: 100%;
-  object-fit: contain;     
-  object-position: center; 
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none; /* just in case */
 }
+

@@ -9,7 +9,7 @@ export default function Factory() {
 
  
   useEffect(() => {
-    const timer = setTimeout(() => setShowMap(true), 5000);
+    const timer = setTimeout(() => setShowMap(true), 2000);
     return () => clearTimeout(timer);
   }, []);
 
