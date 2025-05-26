@@ -3,10 +3,13 @@ import styles from './Concept.module.css';
 
 export default function Concept() {
   return (
-    <div className={styles.conceptContainer}>
+    
+     <div className={styles.conceptContainer}>
+      <div className={styles.conceptLogo}>
       <Link to="/factory" className={styles.conceptLink}>
-        Concept
+        <img src="/concept_btn.gif" height="800"></img>
       </Link>
-    </div>
+      </div>
+      </div>
   );
 }
