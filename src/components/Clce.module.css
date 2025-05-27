@@ -1,5 +1,5 @@
 .folder {
-  margin: 1rem auto;
+  margin: 5rem auto;
   max-width: 70%;
   width: 100%;
   -ms-overflow-style: none;
@@ -38,6 +38,7 @@
   background: var(--background);
   white-space: nowrap;
   cursor: pointer;
+  transition: box-shadow 0.2s ease, background-color 0.3s;
 }
 
 .tab:first-of-type {
@@ -112,32 +113,75 @@
 }
 
 .contentInner {
-  font-family: "Yomogi", sans-serif;
-  display: none;
+  display: flex; /* 修改為左右排版 */
+  gap: 1.5rem;
   background: var(--background);
   border-radius: inherit;
-  padding: 1rem;
+  padding: 1.5rem;
   filter: drop-shadow(0px -2px 2px rgba(0, 0, 0, 0.1));
   z-index: 5;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  position: relative;
+  height: 35rem;
+}
+
+.leftPanel {
+  flex: 1 1 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(200, 255, 244, 0.6); 
+  padding: 1rem;
+  border-radius: 15px;
+  min-width: 250px;
+  height: 100%;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 12px;
+  background-color: #d9fff9;
 }
 
 .page {
-  padding: 1.5rem;
+  padding: 0.5rem;
   border-radius: 2px;
   min-height: 20rem;
-  line-height: 160%;
-  background-color: #f9f9f9;
+  line-height: 2rem;
+  background-color: #fff;
   filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.15));
-  background-image: linear-gradient(#e4e4e4 1px, transparent 1px);
-  background-size: 8% 8%, 2px 2px;
+  background-image: linear-gradient(#000 1px, transparent 1px);
+  background-size: 100% 2rem;
+  border: 2px solid;
+  height: 100%;
+  overflow: auto;  
+}
+
+.caption {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+  color: #333;
+}
+
+.rightPanel {
+  flex: 1 1 55%;
+  min-width: 300px;
+  
+  height: 100%;
 }
 
 .folder .tab:nth-of-type(1), .folder .contentInner:nth-of-type(1) {
-  --background: #af4d98;
+  --background: #e6adc2;
 }
 
 .folder .tab:nth-of-type(2), .folder .contentInner:nth-of-type(2) {
-  --background: #d66ba0;
+  --background: #A8D8B9;
 }
 
 .folder .tab:nth-of-type(3), .folder .contentInner:nth-of-type(3) {
@@ -145,44 +189,51 @@
 }
 
 .folder .tab:nth-of-type(4), .folder .contentInner:nth-of-type(4) {
-  --background: #6cb6bb;
+  --background: #c3e48d;
 }
 
 .folder .tab {
-  border: 2px solid;
-  border-width: 2px 0 0;
+  border: none;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.08); /* 上緣陰影 */
+  position: relative;
+  z-index: 1;
 }
 
 .folder .tab:before, .tab:after {
-  top: -2px;
-  border-top: 2px solid;
+  top: 0;  /* 與主體對齊 */
+  border: none; /* ❌ 不再需要補邊線 */
+  box-shadow: none;
 }
 
-.folder .tab:before {
+/* .folder .tab:before {
   border-right: 2px solid;
 }
 
 .folder .tab:after {
   border-left: 2px solid;
-}
+} */
 
 .tab:not(.active) {
-  border-bottom: 2px solid;
+ box-shadow: inset 0 -2px 2px rgba(0, 0, 0, 0.05);
 }
 
 .tab:not(.active):before, .tab:not(.active):after {
-  box-shadow: 0 1.5px 0 black;
+box-shadow: none; /* ❌ 不再需要黑色描邊 */
 }
 
 .folder .content {
-  top: -2px;
-  left: -2px;
+  top: 0;
+  left: 0;
 }
 
 .folder .contentInner {
-  box-shadow: 0 0 0 1.5px black;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* ✅ 柔和投影取代外框 */
+  border: none;
+
+  border-radius: 10px;
 }
 
 .folder .page {
-  border: 2px solid;
+  border: none;
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1); /* 可用於虛線條背景 */
 }
