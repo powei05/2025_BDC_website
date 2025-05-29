@@ -67,7 +67,7 @@ export default function HomeMapDS() {
     const originY = ((bbox.y + bbox.height/2) / vb.height) * 100 + '%';
 
     const tl = gsap.timeline({
-      onComplete: () => navigate('/dancestudio')
+      onComplete: () => navigate('/idea')
     });
 
     // 直接放大 container

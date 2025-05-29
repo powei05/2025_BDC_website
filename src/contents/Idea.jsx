@@ -1,25 +1,23 @@
-// src/components/Factory.jsx
-import { useState, useEffect } from 'react';
+// src/components/DanceStudio.jsx
+import  { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { BodyAnimation, HomeMap } from '../components';
-import styles from './Factory.module.css';   
+import {Concept, BodyAnimation} from '../components';
+import styles from './Idea.module.css';
 
-export default function Factory() {
-  const [showMap, setShowMap] = useState(false);
+export default function Idea() {
+  const [showAnimation, setShowAnimation] = useState(true);
 
- 
   useEffect(() => {
-    const timer = setTimeout(() => setShowMap(true), 2000);
+    const timer = setTimeout(() => setShowAnimation(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className={styles.factoryContainer}> 
-      <AnimatePresence exitBeforeEnter>
-        {!showMap ? (
-         
+    <div className={styles.ideaContainer}>
+      <AnimatePresence>
+        {showAnimation ? (
           <motion.div
-            key="animation"
+            key="body"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -28,15 +26,14 @@ export default function Factory() {
             <BodyAnimation />
           </motion.div>
         ) : (
-         
           <motion.div
-            key="map"
+            key="concept"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
           >
-            <HomeMap />
+            <Concept />
           </motion.div>
         )}
       </AnimatePresence>

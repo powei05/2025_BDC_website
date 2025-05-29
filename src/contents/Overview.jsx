@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { BodyAnimation, HomeMapEnd } from '../components';
-import styles from './DanceStudio.module.css';   
+import styles from './Overview.module.css';   
 
 export default function Overview() {
   const [showMap, setShowMap] = useState(false);
