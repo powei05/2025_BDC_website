@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from './HomeMapTheater.module.css';
 import S2Fnew from '../../img/f2t.svg?react';
 import theaterGif from '../../img/theater.gif';
-import facGif     from '../../img/fac.gif';
-import dsGif      from '../../img/ds.gif';
+import facGif     from '../../img/ds.gif';
+import dsGif      from '../../img/idea.gif';
 import gsap from 'gsap';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 

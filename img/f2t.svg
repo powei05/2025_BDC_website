@@ -1,9 +1,9 @@
 <svg id="S2Fsvg" width="1440" height="1024" viewBox="0 0 1440 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="1440" height="1024" fill="none"/>
 <g id="Desktop - 1">
-<rect id="theater_bg_theater" x="1090" y="653" width="334" height="310" rx="30" fill="#FFBFBF"/>
-<rect id="Fac_bg_theater" x="12" y="678" width="320" height="285" rx="30" fill="#E3EECA"/>
-<rect id="DS_bg_theater" x="560" y="53" width="320" height="310" rx="30" fill="#BFE4C7"/>
+<rect id="theater_bg_theater" x="1090" y="653" width="334" height="310" rx="30" fill="none"/>
+<rect id="Fac_bg_theater" x="12" y="678" width="320" height="285" rx="30" fill="none"/>
+<rect id="DS_bg_theater" x="560" y="53" width="320" height="310" rx="30" fill="none"/>
 <g id="F2T">
 <path id="needlepath_theater" d="M338 799.688C355 849.521 403.1 919.288 459.5 799.688C515.9 680.088 570 749.854 590 799.688C610.833 851.521 665.7 924.088 718.5 799.688C771.3 675.288 826.5 747.854 847.5 799.688C872 850.354 931.4 921.288 973 799.688C1014.6 678.088 1063.33 749.021 1082.5 799.688" stroke="#60CA84" stroke-width="5"/>
 <g id="whole_needle_theater">

@@ -96,7 +96,7 @@ export default function Clce({ onNext }) {
         ))}
       </div>
 
-      <button onClick={onNext}>COMPLETE</button>
+      <button className={styles.completeButton} onClick={onNext}>COMPLETE</button>
     </div>
   );
 }
