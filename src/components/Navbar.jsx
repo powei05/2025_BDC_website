@@ -6,7 +6,7 @@ export default function DotNavbar() {
   const closeTimeoutRef = useRef(null);
 
   const navPages = [
-    { name: "Home", path: "/", icon: "../../img/bodyanimation.gif" },
+    { name: "Home", path: "/", icon: "../../img/idea.gif" },
     { name: "Studio", path: "/dancestudio", icon: "../../img/ds.gif" },
     { name: "Factory", path: "/factory", icon: "../../img/fac.gif" },
     { name: "Theatre", path: "/pov", icon: "../../img/theater.gif" },
@@ -92,7 +92,7 @@ export default function DotNavbar() {
       onMouseLeave={handleMouseLeave}
     >
       <img
-        src="txt_icon.png" // Uses uploaded image
+        src="../../img/Yanshen_Logo_.png" // Uses uploaded image
         alt="Petrichor Menu"
         style={styles.iconButton}
       />
