@@ -7,8 +7,8 @@ export default function DotNavbar() {
 
   const navPages = [
     { name: "Home", path: "/", icon: "../../img/idea.gif" },
+    { name: "Idea", path: "/idea", icon: "../../img/idea.gif" },
     { name: "Studio", path: "/dancestudio", icon: "../../img/ds.gif" },
-    { name: "Factory", path: "/factory", icon: "../../img/fac.gif" },
     { name: "Theatre", path: "/pov", icon: "../../img/theater.gif" },
     { name: "Description", path: "/description", icon: "../../img/conceptpage.gif" },
   ];
