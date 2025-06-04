@@ -15,7 +15,7 @@ const tabs = [
       <>
         <p>Productize. Optics accountable talk. Thought shower. High performance keywords market-facing drink from the firehose, or you better eat a reality sandwich before you walk back in that boardroom, but accountable talk knowledge process outsourcing.</p>
         <p>What's our go to market strategy? cross functional teams enable out of the box brainstorming nor zeitgeist viral engagement. Deep dive. Organic growth quick sync, feed the algorithm.</p>
-         <p>Productize. Optics accountable talk. Thought shower. High performance keywords market-facing drink from the firehose, or you better eat a reality sandwich before you walk back in that boardroom, but accountable talk knowledge process outsourcing.</p>
+        <p>Productize. Optics accountable talk. Thought shower. High performance keywords market-facing drink from the firehose, or you better eat a reality sandwich before you walk back in that boardroom, but accountable talk knowledge process outsourcing.</p>
         <p>What's our go to market strategy? cross functional teams enable out of the box brainstorming nor zeitgeist viral engagement. Deep dive. Organic growth quick sync, feed the algorithm.</p>
         <p>Productize. Optics accountable talk. Thought shower. High performance keywords market-facing drink from the firehose, or you better eat a reality sandwich before you walk back in that boardroom, but accountable talk knowledge process outsourcing.</p>
         <p>What's our go to market strategy? cross functional teams enable out of the box brainstorming nor zeitgeist viral engagement. Deep dive. Organic growth quick sync, feed the algorithm.</p>     

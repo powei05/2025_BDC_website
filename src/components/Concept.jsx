@@ -6,7 +6,7 @@ export default function Concept() {
     
      <div className={styles.conceptContainer}>
       <div className={styles.conceptLogo}>
-        <Link to="/dancestudio" className={styles.conceptLink}>
+        <Link to="/concepttext" className={styles.conceptLink}>
           <img src="/concept_btn.gif" height="800"></img>
         </Link>
       </div>

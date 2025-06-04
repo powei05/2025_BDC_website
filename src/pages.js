@@ -9,7 +9,8 @@ import {
     DanceStudio,
     Idea,
     MaterialIntro,
-    Overview
+    Overview,
+    ConceptText,
   } from "./contents";
 
 
@@ -85,6 +86,14 @@ import {
       title: "Overview",
       path: "/overview",
       component: Overview,
+      lead: "",
+      icon: "../../public/group-chat.png",
+    },
+      {
+      name: "ConceptText",
+      title: "ConceptText",
+      path: "/concepttext",
+      component: ConceptText,
       lead: "",
       icon: "../../public/group-chat.png",
     },

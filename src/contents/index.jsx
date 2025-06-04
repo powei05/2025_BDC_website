@@ -7,4 +7,5 @@ export {default as DanceStudio} from './DanceStudio.jsx';
 export {default as Idea} from './Idea.jsx';
 export {default as MaterialIntro} from './MaterialIntro.jsx';
 export {default as Overview} from './Overview.jsx';
+export {default as ConceptText} from './ConceptText.jsx';
 
