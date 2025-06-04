@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Abstract, HomeMapDS, HomeMapEnd, HomeMapTheater } from '../components';
+import { Abstract} from '../components';
 import styles from './MaterialIntro.module.css';
 
 export default function MaterialIntro() {

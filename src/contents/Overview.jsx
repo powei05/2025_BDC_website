@@ -9,7 +9,7 @@ export default function Overview() {
 
  
   useEffect(() => {
-    const timer = setTimeout(() => setShowMap(true), 1000);
+    const timer = setTimeout(() => setShowMap(true), 3000);
     return () => clearTimeout(timer);
   }, []);
 

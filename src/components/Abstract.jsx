@@ -56,7 +56,7 @@ const tabs = [
   }
 ];
 
-export default function Abstract({ onNext }) {
+export default function Abstract() {
   const [activeTab, setActiveTab] = useState('tab-1');
   const navigate = useNavigate();
 
@@ -96,7 +96,7 @@ export default function Abstract({ onNext }) {
       <button
         className={styles.completeButton}
         onClick={() => navigate('/dancestudio')}>
-      COMPLETE
+      NEXT
       </button>
     </div>
   );

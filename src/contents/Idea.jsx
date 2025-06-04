@@ -8,7 +8,7 @@ export default function Idea() {
   const [showAnimation, setShowAnimation] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowAnimation(false), 2000);
+    const timer = setTimeout(() => setShowAnimation(false), 3000);
     return () => clearTimeout(timer);
   }, []);
 
