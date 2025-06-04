@@ -4,6 +4,7 @@ import ideaGif from '../../img/idea.gif';
 import dsGif from '../../img/ds.gif';
 import theaterGif from '../../img/theater.gif';
 import conceptGif from '../../img/conceptpage.gif';
+import logo from '../../img/Yanshen_Logo_.png';
 
 export default function DotNavbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -96,7 +97,7 @@ export default function DotNavbar() {
       onMouseLeave={handleMouseLeave}
     >
       <img
-        src="../../img/Yanshen_Logo_.png" // Uses uploaded image
+        src={logo}
         alt="Petrichor Menu"
         style={styles.iconButton}
       />
