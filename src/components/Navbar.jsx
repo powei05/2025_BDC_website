@@ -1,16 +1,20 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import ideaGif from '../../img/idea.gif';
+import dsGif from '../../img/ds.gif';
+import theaterGif from '../../img/theater.gif';
+import conceptGif from '../../img/conceptpage.gif';
 
 export default function DotNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const closeTimeoutRef = useRef(null);
 
   const navPages = [
-    { name: "Home", path: "/", icon: "../../img/idea.gif" },
-    { name: "Idea", path: "/idea", icon: "../../img/idea.gif" },
-    { name: "Studio", path: "/dancestudio", icon: "../../img/ds.gif" },
-    { name: "Theatre", path: "/pov", icon: "../../img/theater.gif" },
-    { name: "Description", path: "/description", icon: "../../img/conceptpage.gif" },
+    { name: "Home", path: "/", icon: ideaGif },
+    { name: "Idea", path: "/idea", icon: ideaGif },
+    { name: "Studio", path: "/dancestudio", icon: dsGif },
+    { name: "Theater", path: "/pov", icon: theaterGif },
+    { name: "Description", path: "/description", icon: conceptGif },
   ];
 
   const styles = {
