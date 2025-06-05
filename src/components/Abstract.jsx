@@ -9,18 +9,18 @@ import { useNavigate } from 'react-router-dom';
 const tabs = [
   {
     id: 'tab-1',
-    label: 'Work stuff',
+    label: 'Abstract',
     pic: hydrogelImg,
     pictxt: '圖片標題 2',
     content: (
       <>
-        <p>The name Yánshēn（顔身) is a word play on the Chinese phrase for extension (延伸), replacing each character with homonyms for Color (顔) and Body (身); this name speaks to this project’s ambition to create a color-changing bio-garment that becomes an extension of the body itself through performance. </p>
+        <p>The name Yánshēn （顔身) is a word play on the Chinese phrase for extension (延伸), replacing each character with homonyms for Color (顔) and Body (身); this name speaks to this project’s ambition to create a color-changing bio-garment that becomes an extension of the body itself through performance. </p>
       </>
     )
   },
   {
     id: 'tab-2',
-    label: 'Food',
+    label: 'Problem',
     pic: hydrogelImg,
     pictxt: '圖片標題 2',
     content: (
@@ -31,7 +31,7 @@ const tabs = [
   },
   {
     id: 'tab-3',
-    label: 'Baking',
+    label: 'Solution',
     pic: cotton,
     pictxt: '圖片標題 2',
     content: (
@@ -40,20 +40,12 @@ const tabs = [
           These fibers are to be woven together to create a unique textile that can change color when stretched; the rigidity, skin-adhesion, and cooling effects of this textile also increases with moisture levels (sweat). When used in select parts of performance garments, the Yánshēn textile not only changes color 
           with the movements of the body, but also acts as a wearable biosensor for the performer, reminding them of their bodily conditions. With Yánshēn, a garment exists beyond clothing — it becomes an integral part of both the performer and performance.
         </p>
-      </>
+        <div className={styles.space}><p>space</p></div>
+        <p>As a performer becomes aware of their garment, they reconcile the various components of performative art, transcending traditional boundaries between body, art, and expression. The garment becomes a second-skin, an organ; a reunion, or perhaps more than that, occurs.</p>
+      </> 
     )
   },
-  {
-    id: 'tab-4',
-    label: 'Cat',
-    pic: cotton,
-    pictxt: '圖片標題 2',
-    content: (
-      <>
-        <p>As a performer becomes aware of their garment, they reconcile the various components of performative art, transcending traditional boundaries between body, art, and expression. The garment becomes a second-skin, an organ; a reunion, or perhaps more than that, occurs.</p>
-      </>
-    )
-  }
+  
 ];
 
 export default function Abstract() {
