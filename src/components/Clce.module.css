@@ -184,6 +184,9 @@
 .folder .tab:nth-of-type(4), .folder .contentInner:nth-of-type(4) {
   --background: #c3e48d;
 }
+.folder .tab:nth-of-type(5), .folder .contentInner:nth-of-type(5) {
+  --background: #a48de4;
+}
 
 .folder .tab {
   border: none;
