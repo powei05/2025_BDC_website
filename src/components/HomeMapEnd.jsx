@@ -117,7 +117,7 @@ export default function HomeMap() {
     const tl = gsap.timeline({
       onComplete: () => {
         // navigate('/factory');
-        navigate('/team-members');
+        navigate('/description');
       }
     });
 
