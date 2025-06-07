@@ -1,8 +1,20 @@
 .completeButton {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
-    z-index: 999;
-  }
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0;
+  background: none;
+  border: none;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.completeButton img {
+  width: 7rem; /* 根據圖示需求調整 */
+  height: auto;
+  display: block;
+}
+.completeButton img:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './Clce.module.css';
 import hydrogelImg from '../../img/gel.jpg';
 import cotton from '../../img/cotton.jpg';
+import inkButtonImg from '../../img/InkButton.svg';
 
 const tabs = [
   {
@@ -96,7 +97,9 @@ export default function Clce({ onNext }) {
         ))}
       </div>
 
-      <button className={styles.completeButton} onClick={onNext}>NEXT</button>
+      <button className={styles.completeButton} onClick={onNext}>
+        <img src={inkButtonImg} alt="Next" />
+      </button>
     </div>
   );
 }

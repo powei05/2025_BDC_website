@@ -6,6 +6,7 @@ import { Container } from "react-bootstrap";
 import "../containers/Bootstrapcss.css";
 import { useNavigate } from 'react-router-dom';
 import styles from './Pov.module.css';
+import inkButtonImg from '../../img/InkButton.svg';
 
 // 畫面識別名稱
 const SCREENS = ["movie", "DemoPage"];
@@ -69,9 +70,10 @@ function Movie({ onNext }) {
         }}
       />
       <button
-              className={styles.completeButton}
-              onClick={() => navigate('/demo')}>
-            COMPLETE
+        className={styles.completeButton}
+        onClick={() => navigate('/demo')}
+      >
+        <img src={inkButtonImg} alt="Complete" />
       </button>
     </section>
   );
