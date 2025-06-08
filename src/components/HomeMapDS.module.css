@@ -24,7 +24,7 @@
 
 :global(#DS_bg_Studio:hover) {
   transform: scale(1.08);
-  fill: #f184ea;
+  fill: #f184ea00;
 }
 
 /* All gif containers are non-interactive */

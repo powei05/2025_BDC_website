@@ -24,7 +24,7 @@
 
 :global(#theater_bg_theater:hover) {
   transform: scale(1.08);
-  fill: #5494e7;
+  fill: none;
 }
 
 /* Non-interactive overlay container */

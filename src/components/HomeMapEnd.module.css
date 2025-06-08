@@ -24,7 +24,7 @@
 
 :global(#DS_bg_end:hover) {
   transform: scale(1.08);
-  fill: #dd6aec;
+  fill: #dd6aec00;
 }
 
 /* Overlay container — non-interactive */

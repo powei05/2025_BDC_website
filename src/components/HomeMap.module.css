@@ -24,7 +24,7 @@
 
 :global(#Fac_bg:hover) {
   transform: scale(1.08);
-  fill: #5494e7;
+  fill: #e7bbbb00;
 }
 
 /* Non-interactive by default */

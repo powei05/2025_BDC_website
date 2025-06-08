@@ -1,68 +1,48 @@
 import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './HomeMap.module.css';
-import S2Fnew from '../../img/s2f_new.svg?react';
+
+import S2Fnew     from '../../img/s2f_new.svg?react';
 import theaterGif from '../../img/theater.gif';
 import facGif     from '../../img/ds.gif';
 import dsGif      from '../../img/idea.gif';
 
 import gsap from 'gsap';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
-
-
 gsap.registerPlugin(MotionPathPlugin);
 
 export default function HomeMap() {
   const containerRef = useRef(null);
-  const [phase, setPhase] = useState('init');
+
+  const [phase, setPhase]       = useState('init');   // 控制一次點擊
+  const [isClicked, setClicked] = useState(false);    // 控制 brush 是否保持顯示
   const navigate = useNavigate();
-  
+
+  /* ---------- ① 初始：隱藏 path / brush / needle ---------- */
   useEffect(() => {
-    const svgContainer = containerRef.current;
-    if (!svgContainer) return;
+    const svg = containerRef.current;
+    if (!svg) return;
 
-    // initial phase hide all path
-    const needlePath = svgContainer.querySelector('#needlepath');
+    const needlePath  = svg.querySelector('#needlepath');
+    const brushGroup  = svg.querySelector('#brush');
+    const wholeNeedle = svg.querySelector('#whole_needle_homemap');
+
     if (needlePath) {
-      const length = needlePath.getTotalLength();
-      needlePath.style.strokeDasharray = length;
-      needlePath.style.strokeDashoffset = length;
+      const len = needlePath.getTotalLength();
+      needlePath.style.strokeDasharray  = len;
+      needlePath.style.strokeDashoffset = len;
     }
-
-    // initial phase hide whole needle
-    const wholeNeedle = svgContainer.querySelector('#whole_needle_homemap');
-    if (wholeNeedle) gsap.set(wholeNeedle, { autoAlpha: 0 });
-  }, []);
-    
-    useEffect(() => {
-    const svgContainer = containerRef.current;
-    if (!svgContainer) return;
-
-    // 隱藏 path & wholeNeedle
-    const needlePath = svgContainer.querySelector('#needlepath');
-    if (needlePath) {
-      const length = needlePath.getTotalLength();
-      needlePath.style.strokeDasharray = length;
-      needlePath.style.strokeDashoffset = length;
-    }
-    const wholeNeedle = svgContainer.querySelector('#whole_needle_homemap');
+    if (brushGroup)  gsap.set(brushGroup,  { autoAlpha: 0 });
     if (wholeNeedle) gsap.set(wholeNeedle, { autoAlpha: 0 });
   }, []);
 
-  // ------------------------------------------------
-  // 2) 新增：動態讀取 <rect> 來定位三個 GIF
-  // ------------------------------------------------
+  /* ---------- ② 動態擺放三個 GIF ---------- */
   useEffect(() => {
-    const svgContainer = containerRef.current;
-    if (!svgContainer) return;
+    const svg = containerRef.current;
+    if (!svg) return;
 
-    const updateGifs = () => {
-      // SVG 在 viewport 的絕對位置
-      const svgRect = svgContainer
-        .querySelector('#S2Fsvg')
-        .getBoundingClientRect();
-
-      // 要對應的 id 與 CSS class
+    const update = () => {
+      const svgRect = svg.querySelector('#S2Fsvg').getBoundingClientRect();
       const map = [
         ['theater_bg', styles.theater],
         ['Fac_bg',     styles.fac],
@@ -70,87 +50,92 @@ export default function HomeMap() {
       ];
 
       map.forEach(([rectId, cls]) => {
-        const rectEl = svgContainer.querySelector(`#${rectId}`);
-        const gifDiv = svgContainer.querySelector(`.${cls}`);
-        if (rectEl && gifDiv) {
-          const r = rectEl.getBoundingClientRect();
-          // 轉成相對 container 的 px
-          const left   = r.left   - svgRect.left;
-          const top    = r.top    - svgRect.top;
-          const width  = r.width;
-          const height = r.height;
+        const rect = svg.querySelector(`#${rectId}`);
+        const div  = svg.querySelector(`.${cls}`);
+        if (!rect || !div) return;
 
-          Object.assign(gifDiv.style, {
-            left:   `${left}px`,
-            top:    `${top}px`,
-            width:  `${width}px`,
-            height: `${height}px`,
-          });
-        }
+        const r = rect.getBoundingClientRect();
+        Object.assign(div.style, {
+          left:   `${r.left - svgRect.left}px`,
+          top:    `${r.top  - svgRect.top }px`,
+          width:  `${r.width }px`,
+          height: `${r.height}px`,
+        });
       });
     };
 
-    updateGifs();
-    window.addEventListener('resize', updateGifs);
-    return () => window.removeEventListener('resize', updateGifs);
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
   }, []);
 
+  /* ---------- ③ Hover：進入顯示、離開隱藏（點擊後不再隱藏） ---------- */
+  useEffect(() => {
+    const svg = containerRef.current;
+    if (!svg) return;
+
+    const brushGroup = svg.querySelector('#brush');
+    const facBg      = svg.querySelector('#Fac_bg');
+    if (!brushGroup || !facBg) return;
+
+    const enter = () =>
+      gsap.to(brushGroup, { autoAlpha: 1, duration: 0.6, ease: 'power2.out' });
+
+    const leave = () => {
+      if (isClicked) return; // 已點擊就保持顯示
+      gsap.to(brushGroup, { autoAlpha: 0, duration: 0.4, ease: 'power2.in' });
+    };
+
+    facBg.addEventListener('mouseenter', enter);
+    facBg.addEventListener('mouseleave', leave);
+    return () => {
+      facBg.removeEventListener('mouseenter', enter);
+      facBg.removeEventListener('mouseleave', leave);
+    };
+  }, [isClicked]);
+
+  /* ---------- ④ Click：播放路徑動畫、zoom in、並固定 brush ---------- */
   const handleClick = e => {
     if (phase !== 'init' || e.target.id !== 'Fac_bg') return;
     setPhase('animating');
+    setClicked(true);                      // 使 brush 以後一直顯示
 
-    const svgContainer = containerRef.current;
-    const needlePath    = svgContainer.querySelector('#needlepath');
-    const wholeNeedle   = svgContainer.querySelector('#whole_needle_homemap');
-    const facBg         = svgContainer.querySelector('#Fac_bg');
-
+    const svg          = containerRef.current;
+    const needlePath   = svg.querySelector('#needlepath');
+    const wholeNeedle  = svg.querySelector('#whole_needle_homemap');
+    const brushGroup   = svg.querySelector('#brush');
+    const facBg        = svg.querySelector('#Fac_bg');
     if (!needlePath || !wholeNeedle || !facBg) return;
 
-    // set factory bbox position
-    const bbox = facBg.getBBox();
-    const svgEl = svgContainer.querySelector('#S2Fsvg');
-    const vb = svgEl.viewBox.baseVal;
-    const originX = ((bbox.x + bbox.width/2) / vb.width)  * 100 + '%';
-    const originY = ((bbox.y + bbox.height/2) / vb.height)* 100 + '%';
+    /* zoom 參考點 */
+    const bbox  = facBg.getBBox();
+    const vb    = svg.querySelector('#S2Fsvg').viewBox.baseVal;
+    const oxPct = ((bbox.x + bbox.width  / 2) / vb.width ) * 100 + '%';
+    const oyPct = ((bbox.y + bbox.height / 2) / vb.height) * 100 + '%';
 
-    // setup timeline
-    const tl = gsap.timeline({
-      onComplete: () => {
-        // navigate('/factory');
-        navigate('/materialintro');
-      }
-    });
+    /* 動畫流程 */
+    const tl = gsap.timeline({ onComplete: () => navigate('/materialintro') });
 
-    // 1. path animation
-    tl.set(wholeNeedle, { autoAlpha: 1 }, 0)
+    tl.to(brushGroup,  { autoAlpha: 1, duration: 1.2, ease: 'power2.out' }, 0)
+      .set(wholeNeedle, { autoAlpha: 1 }, 0)
       .to(wholeNeedle, {
         duration: 3,
         ease: 'none',
-        motionPath: {
-          path: needlePath,
-          align: needlePath,
-          autoRotate: false,
-          alignOrigin: [0.35, 0.1]
-        }
+        motionPath: { path: needlePath, align: needlePath, autoRotate: false, alignOrigin: [0.35, 0.1] }
       }, 0)
-      .to(needlePath, {
-        strokeDashoffset: 0,
-        duration: 3,
-        ease: 'none'
-      }, 0);
+      .to(needlePath, { strokeDashoffset: 0, duration: 3, ease: 'none' }, 0)
+      .to(svg, {
+        duration: 1,
+        scale: 2,
+        transformOrigin: `${oxPct} ${oyPct}`,
+        ease: 'power1.inOut'
+      }, '>-0.2');
 
-    // 2. zoomin factory
-    tl.to(svgContainer, {
-      duration: 1,
-      scale: 2,                    // 放大到 2 倍，你可調整
-      transformOrigin: `${originX} ${originY}`,
-      ease: 'power1.inOut'
-    }, '>-0.2');  // 在前一段動畫快結束時就開始
-
-    // 設置容器的 CSS，確保 transform 可用
-    gsap.set(svgContainer, { transformOrigin: '0 0' });
+    /* 讓 transform 生效 */
+    gsap.set(svg, { transformOrigin: '0 0' });
   };
 
+  /* ---------- ⑤ JSX ---------- */
   return (
     <div ref={containerRef} className={styles.container} onClick={handleClick}>
       <S2Fnew id="S2Fsvg" className={styles.svg} />
@@ -167,5 +152,6 @@ export default function HomeMap() {
     </div>
   );
 }
+
 
 
