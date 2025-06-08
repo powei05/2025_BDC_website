@@ -5,7 +5,11 @@ import styles from './Clce.module.css';
 import hydrogelImg from '../../img/gel.jpg';
 import cotton from '../../img/cotton.jpg';
 import inkButtonImg from '../../img/InkButton.svg';
-import materialx from '../../img/stan.png';
+import materialx from '../../img/backgroundx.gif';
+import materialy from '../../img/hydrogel.png';
+import materialz from '../../img/cotton2.jpg';
+import materiala from '../../img/knittingPattern.png';
+import materialb from '../../img/MITCLCE.png';
 const tabs = [
   {
     id: 'tab-1',
@@ -27,7 +31,7 @@ const tabs = [
   {
     id: 'tab-2',
     label: 'CLCE Fiber',
-    pic: hydrogelImg,
+    pic: materialb,
     pictxt: 'Cholesteric Liquid Crystal Elastomer (CLCE)',
     content: (
       <>
@@ -42,7 +46,7 @@ const tabs = [
   {
     id: 'tab-3',
     label: 'Hydrogel fiber',
-    pic: cotton,
+    pic: materialy,
     pictxt: 'hydrogel',
     content: (
       <>
@@ -57,7 +61,7 @@ const tabs = [
   {
     id: 'tab-4',
     label: 'Cotton',
-    pic: cotton,
+    pic: materialz,
     pictxt: 'Organic Cotton',
     content: (
       <>
@@ -72,7 +76,7 @@ const tabs = [
   {
     id: 'tab-5',
     label: 'Knit',
-    pic: hydrogelImg,
+    pic: materiala,
     pictxt: 'Knitting Pattern',
     content: (
       <>
