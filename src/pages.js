@@ -46,7 +46,7 @@ import {
       title: "Petrichor Demo",
       path: "/demo",
       component: DemoPage,
-      lead: "Try our real-time clothing color changer!",
+      lead: "Experience Chameleon-Like Color-Changing Effect fibers in real-time!",
       icon: "../../public/webcam.png",
     },
     {

@@ -4,14 +4,14 @@ import '@tensorflow/tfjs-backend-webgl';
 import * as bodyPix from '@tensorflow-models/body-pix';
 import './ClothingColorChanger.css';
 
-// 添加用於較老瀏覽器的 getUserMedia polyfill
+// Add getUserMedia polyfill for older browsers
 const setupMediaDevicesPolyfill = () => {
-  // 確保 navigator.mediaDevices 存在
+  // Ensure navigator.mediaDevices exists
   if (navigator.mediaDevices === undefined) {
     navigator.mediaDevices = {};
   }
   
-  // 提供舊版的 getUserMedia 兼容方案
+  // Provide compatibility for older getUserMedia
   if (navigator.mediaDevices.getUserMedia === undefined) {
     navigator.mediaDevices.getUserMedia = function(constraints) {
       const getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
@@ -29,24 +29,35 @@ const setupMediaDevicesPolyfill = () => {
   }
 };
 
-// 正確的胸部/軀幹部位索引 (TF.js 4.x 中是零基索引)
-const TORSO_PART_IDS = [13, 14]; // 13是前胸，14是後背
+// BodyPix part indices - let's try torso and arms for shirt area
+const TORSO_PART_IDS = [2,3,4,5,6,7,8,9,10,11,12,13,14,15]; 
+
+// CLCE color progression (Red → Orange → Yellow → Green → Blue → Violet)
+const CLCE_COLORS = [
+  { r: 255, g: 0, b: 0 },     // Red
+  { r: 255, g: 165, b: 0 },   // Orange  
+  { r: 255, g: 255, b: 0 },   // Yellow
+  { r: 0, g: 255, b: 0 },     // Green
+  { r: 0, g: 0, b: 255 },     // Blue
+  { r: 128, g: 0, b: 128 }    // Violet
+];
 
 const ClothingColorChanger = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [isStreaming, setIsStreaming] = useState(false);
   const [model, setModel] = useState(null);
-  const [colorOption, setColorOption] = useState('red');
   const [cameraError, setCameraError] = useState(null);
   const [isCameraAvailable, setIsCameraAvailable] = useState(true);
   const [showDebugInfo, setShowDebugInfo] = useState(false);
   const [playAttempts, setPlayAttempts] = useState(0);
-  const [modelStatus, setModelStatus] = useState('初始化中...');
+  const [modelStatus, setModelStatus] = useState('Initializing...');
   const [showCamera, setShowCamera] = useState(false);
+  const [stretchFactor, setStretchFactor] = useState(0); // 0-1 scale for color interpolation
+  const [isProcessing, setIsProcessing] = useState(false);
   const maxPlayAttempts = 3;
   
-  // 獲取瀏覽器信息
+  // Get browser information
   const getBrowserInfo = () => {
     const userAgent = navigator.userAgent;
     const protocol = window.location.protocol;
@@ -66,7 +77,54 @@ const ClothingColorChanger = () => {
     };
   };
   
-  // 嘗試設置 polyfill
+  // Calculate stretch factor based on person size in frame
+  const calculateStretchFactor = (segmentation) => {
+    if (!segmentation || !segmentation.allPoses || segmentation.allPoses.length === 0) return 0;
+    
+    // Get the first pose
+    const pose = segmentation.allPoses[0];
+    if (!pose || !pose.keypoints) return 0;
+    
+    // Find shoulder keypoints to estimate person size
+    const leftShoulder = pose.keypoints.find(kp => kp.part === 'leftShoulder');
+    const rightShoulder = pose.keypoints.find(kp => kp.part === 'rightShoulder');
+    
+    if (!leftShoulder || !rightShoulder || leftShoulder.score < 0.3 || rightShoulder.score < 0.3) {
+      return 0;
+    }
+    
+    // Calculate shoulder width as proxy for person size/distance
+    const shoulderWidth = Math.abs(leftShoulder.position.x - rightShoulder.position.x);
+    
+    // Normalize shoulder width (typical range 80-300 pixels)
+    // Larger shoulder width = closer to camera = more "stretch"
+    const normalizedWidth = Math.min(1, Math.max(0, (shoulderWidth - 80) / 220));
+    
+    return normalizedWidth;
+  };
+  
+  // Interpolate between CLCE colors based on stretch factor
+  const getClceColor = (factor) => {
+    if (factor <= 0) return CLCE_COLORS[0];
+    if (factor >= 1) return CLCE_COLORS[CLCE_COLORS.length - 1];
+    
+    // Calculate which two colors to interpolate between
+    const scaledFactor = factor * (CLCE_COLORS.length - 1);
+    const lowerIndex = Math.floor(scaledFactor);
+    const upperIndex = Math.min(lowerIndex + 1, CLCE_COLORS.length - 1);
+    const t = scaledFactor - lowerIndex;
+    
+    const lowerColor = CLCE_COLORS[lowerIndex];
+    const upperColor = CLCE_COLORS[upperIndex];
+    
+    return {
+      r: Math.round(lowerColor.r + (upperColor.r - lowerColor.r) * t),
+      g: Math.round(lowerColor.g + (upperColor.g - lowerColor.g) * t),
+      b: Math.round(lowerColor.b + (upperColor.b - lowerColor.b) * t)
+    };
+  };
+  
+  // Try to setup polyfill
   useEffect(() => {
     try {
       setupMediaDevicesPolyfill();
@@ -76,18 +134,18 @@ const ClothingColorChanger = () => {
     }
   }, []);
   
-  // 檢查相機API是否可用
+  // Check if camera API is available
   useEffect(() => {
-    // 檢查相機API支持
+    // Check camera API support
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       console.error('Camera API not available');
       setIsCameraAvailable(false);
-      setCameraError('您的瀏覽器不支持攝像頭功能。請嘗試使用最新版本的Chrome、Firefox或Safari瀏覽器，並確保通過HTTPS或localhost訪問網站。');
+      setCameraError('Your browser does not support camera functionality. Please try using the latest version of Chrome, Firefox, or Safari, and ensure you are accessing the website via HTTPS or localhost.');
     } else {
-      // 檢查是否在安全上下文中運行
+      // Check if running in secure context
       if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') {
         console.warn('Not running in a secure context - camera might not work');
-        setCameraError('請注意：攝像頭功能需要在HTTPS或localhost環境中才能使用。您當前的連接可能不安全。');
+        setCameraError('Please note: Camera functionality requires HTTPS or localhost environment. Your current connection may not be secure.');
       }
     }
   }, []);
@@ -96,14 +154,14 @@ const ClothingColorChanger = () => {
   useEffect(() => {
     const loadModel = async () => {
       try {
-        // 1️⃣ 確保 TensorFlow.js 後端準備好
-        setModelStatus('初始化 TensorFlow.js 後端...');
+        // 1️⃣ Ensure TensorFlow.js backend is ready
+        setModelStatus('Initializing TensorFlow.js backend...');
         await tf.setBackend('webgl');
         await tf.ready();
-        console.log('TensorFlow.js 後端已初始化');
+        console.log('TensorFlow.js backend initialized');
         
-        // 加載 BodyPix 模型
-        setModelStatus('正在加載 BodyPix 模型...');
+        // Load BodyPix model
+        setModelStatus('Loading BodyPix model...');
         const loadedModel = await bodyPix.load({
           architecture: 'MobileNetV1',
           outputStride: 16,
@@ -111,11 +169,11 @@ const ClothingColorChanger = () => {
           quantBytes: 2
         });
         setModel(loadedModel);
-        setModelStatus('AI 模型加載完成 ✅');
+        setModelStatus('AI model loaded successfully ✅');
         console.log('BodyPix model loaded successfully');
       } catch (error) {
         console.error('Failed to load BodyPix model:', error);
-        setModelStatus('AI 模型加載失敗 ❌');
+        setModelStatus('AI model loading failed ❌');
         setCameraError('Failed to load AI model. Please try again later.');
       }
     };
@@ -137,9 +195,9 @@ const ClothingColorChanger = () => {
     setPlayAttempts(0);
     
     try {
-      // 檢查navigator.mediaDevices是否可用
+      // Check if navigator.mediaDevices is available
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        throw new Error('您的瀏覽器不支持攝像頭功能。請嘗試使用最新版本的Chrome、Firefox或Safari瀏覽器，並確保通過HTTPS或localhost訪問網站。');
+        throw new Error('Your browser does not support camera functionality. Please try using the latest version of Chrome, Firefox, or Safari, and ensure you are accessing the website via HTTPS or localhost.');
       }
       
       const constraints = {
@@ -150,21 +208,21 @@ const ClothingColorChanger = () => {
         audio: false
       };
       
-      console.log('請求相機權限...');
+      console.log('Requesting camera permission...');
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      console.log('相機權限已獲得，stream:', stream.id);
+      console.log('Camera permission granted, stream:', stream.id);
       
       if (videoRef.current) {
-        // 設置視頻流
+        // Set video stream
         videoRef.current.srcObject = stream;
         
-        // 創建一個 Promise 來等待視頻加載完成
+        // Create a Promise to wait for video to load
         const waitForLoadedMetadata = new Promise((resolve) => {
-          // 如果已經加載完成，直接解析
+          // If already loaded, resolve immediately
           if (videoRef.current.readyState >= 2) {
             resolve();
           } else {
-            // 否則，等待 loadedmetadata 事件
+            // Otherwise, wait for loadedmetadata event
             const handleLoadedMetadata = () => {
               videoRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
               resolve();
@@ -173,221 +231,318 @@ const ClothingColorChanger = () => {
           }
         });
         
-        // 等待視頻加載完成
+        // Wait for video to load
         await waitForLoadedMetadata;
-        console.log('視頻元數據已加載');
+        console.log('Video metadata loaded');
         
-        // 嘗試播放視頻
+        // Try to play video
         try {
-          console.log('嘗試播放視頻...');
+          console.log('Attempting to play video...');
           await videoRef.current.play();
-          console.log('視頻開始播放成功');
+          console.log('Video playback started successfully');
           
-          // 在play()成功後設置狀態
+          // Set state after play() succeeds
           setIsStreaming(true);
           
-          // 顯示相機畫面
+          // Show camera feed
           setShowCamera(true);
           
-          // 立即開始一次幀處理
-          console.log('觸發第一次幀處理');
-          setTimeout(() => {
-            processFrame();
-          }, 100);
+          // Start frame processing immediately
+          console.log('Triggering first frame processing');
+          // Start processing right away to show video feed
+          processFrame();
         } catch (playError) {
-          console.error('播放視頻時出錯:', playError);
+          console.error('Error playing video:', playError);
           setPlayAttempts(prev => prev + 1);
           
-          if (playAttempts < maxPlayAttempts) {
-            // 如果是播放中斷錯誤，嘗試短暫延遲後重試
-            if (playError.message.includes('interrupted')) {
-              setCameraError('視頻播放被中斷，正在重試...');
-              
-              // 延遲 500ms 後重試
-              setTimeout(() => {
-                startCamera();
-              }, 500);
-              return;
-            }
+          if (playError.name === 'AbortError') {
+            throw new Error('Video playback was interrupted. This might be due to browser security policies or user interaction requirements.');
+          } else if (playError.name === 'NotAllowedError') {
+            throw new Error('Camera access was denied. Please grant camera permission and try again.');
+          } else {
+            throw new Error(`Video playback failed: ${playError.message}`);
           }
-          
-          // 設置具體的錯誤信息
-          let playErrorMsg = '視頻播放失敗: ' + playError.message;
-          
-          // 如果是中斷錯誤，提供更具體的建議
-          if (playError.message.includes('interrupted')) {
-            playErrorMsg += '。請嘗試刷新頁面後，不要進行其他操作，立即點擊"Start Camera"按鈕。';
-          }
-          
-          setCameraError(playErrorMsg);
         }
       }
     } catch (error) {
-      console.error('訪問相機時出錯:', error);
-      let errorMessage = '訪問相機時出錯。';
-      
-      if (error.name === 'NotAllowedError') {
-        errorMessage += '請允許相機訪問權限。';
-      } else if (error.name === 'NotFoundError') {
-        errorMessage += '未找到相機設備。';
-      } else {
-        errorMessage += error.message || '未知錯誤';
-      }
-      
-      setCameraError(errorMessage);
+      console.error('Error starting camera:', error);
+      setCameraError(error.message);
+      setIsStreaming(false);
     }
   };
   
-  // Stop camera stream
+  // Stop camera
   const stopCamera = () => {
     if (videoRef.current && videoRef.current.srcObject) {
       const tracks = videoRef.current.srcObject.getTracks();
       tracks.forEach(track => track.stop());
       videoRef.current.srcObject = null;
-      setIsStreaming(false);
-      setShowCamera(false);
-      
-      // Clear canvas
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
+    setIsStreaming(false);
+    setShowCamera(false);
+    console.log('Camera stopped');
   };
   
-  // Process video frame
+  // Process frame function
   const processFrame = async () => {
-    console.log('處理幀');
-    // 檢查是否處於流媒體模式和視頻/畫布引用是否存在
-    if (!isStreaming || !videoRef.current || !canvasRef.current) {
-      console.log('流媒體未啟動或引用缺失');
+    if (!isStreaming || !videoRef.current || !canvasRef.current || isProcessing) {
       return;
     }
+    
+    setIsProcessing(true);
     
     const video = videoRef.current;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     
-    // 顯示一些調試信息
-    console.log('視頻狀態:', {
-      readyState: video.readyState,
-      videoWidth: video.videoWidth,
-      videoHeight: video.videoHeight,
-      paused: video.paused,
-      ended: video.ended
-    });
-    
-    // 確保視頻準備好
-    if (video.readyState !== video.HAVE_ENOUGH_DATA) {
-      console.log('視頻未準備好，等待下一幀');
+    // Ensure video is ready to be drawn
+    if (video.readyState < 2) {
+      setIsProcessing(false);
       requestAnimationFrame(processFrame);
       return;
     }
     
-    // 明確設置 canvas 尺寸
-    if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
-      console.log(`設置 canvas 尺寸: ${video.videoWidth}x${video.videoHeight}`);
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
+    // Set canvas size only once at the beginning
+    const videoWidth = video.videoWidth || 640;
+    const videoHeight = video.videoHeight || 480;
+    
+    if (canvas.width === 0 || Math.abs(canvas.width - videoWidth) > 10 || Math.abs(canvas.height - videoHeight) > 10) {
+      canvas.width = videoWidth;
+      canvas.height = videoHeight;
+      console.log(`Canvas size set to: ${videoWidth}x${videoHeight}`);
     }
     
-    // 只有當模型加載完成時才嘗試進行AI處理
-    if (model) {
+    if (model && video.readyState >= 2) {
       try {
-        console.log('嘗試使用AI模型處理畫面');
+        console.log('Running person segmentation...');
         
-        // 執行人體部位分割
-        const parts = await model.segmentPersonParts(video, {
+        // Perform person segmentation with part detection
+        const segmentation = await model.segmentPersonParts(video, {
+          flipHorizontal: false,
           internalResolution: 'medium',
-          segmentationThreshold: 0.5,
-          scoreThreshold: 0.2
+          segmentationThreshold: 0.7,
+          maxDetections: 1,
+          scoreThreshold: 0.2,
+          nmsRadius: 20,
         });
         
-        if (parts && parts.allPoses && parts.allPoses.length > 0) {
-          console.log('檢測到姿勢數量:', parts.allPoses.length);
+        if (segmentation && segmentation.allPoses && segmentation.allPoses.length > 0) {
+          console.log('Person segmentation successful, poses found:', segmentation.allPoses.length);
           
-          // 定義顏色 - 注意需要包含 alpha 值
-          const fgColor = colorOption === 'red'
-            ? { r: 255, g: 0, b: 0, a: 255 }  // 紅色
-            : { r: 255, g: 255, b: 0, a: 255 }; // 黃色
+          // Calculate stretch factor based on person size  
+          const currentStretch = calculateStretchFactor(segmentation);
+          setStretchFactor(currentStretch);
           
-          // 只給想要染的部位上色，其餘保持透明
-          const mask = bodyPix.toMask(
-            parts,
-            fgColor,                       // 前景顏色
-            { r: 0, g: 0, b: 0, a: 0 },    // 透明背景
-            TORSO_PART_IDS,                // 只針對胸部部位
-          );
+          // Get CLCE color based on stretch
+          const clceColor = getClceColor(currentStretch);
           
-          console.log('生成遮罩:', {
-            maskWidth: mask.width,
-            maskHeight: mask.height,
-            canvasWidth: canvas.width,
-            canvasHeight: canvas.height,
-            dataLength: mask.data.length,
-            expectedLength: 4 * canvas.width * canvas.height
-          });
-          
-          // 0.7 代表保留 30% 原本材質；0 代表不 blur；false 不左右翻
-          bodyPix.drawMask(canvas, video, mask, 0.7, 0, false);
-          
-          console.log('成功應用顏色遮罩');
-        } else {
-          console.log('未檢測到人體姿勢，繪製原始影像');
+          // First draw the original video
           ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
           
-          // 添加文字提示，告知用戶未檢測到人體
-          ctx.font = '20px Arial';
+          // Get the segmentation data directly
+          const { data, width, height } = segmentation;
+          
+          // Create image data for manual color application
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const pixels = imageData.data;
+          
+          // Apply color only to torso area, avoiding face region
+          for (let i = 0; i < data.length; i++) {
+            const partId = data[i];
+            
+            // Only apply to torso and upper arms (shirt area)
+            if (TORSO_PART_IDS.includes(partId)) {
+              const pixelIndex = i * 4;
+              const y = Math.floor(i / width);
+              const x = i % width;
+              
+              // Skip upper portion (face area) - only apply to lower 60% of person
+              const relativeY = y / height;
+              if (relativeY > 0.4) { // Only apply to lower 60% of the frame
+                // Blend with existing color
+                const alpha = 0.6;
+                pixels[pixelIndex] = Math.round(pixels[pixelIndex] * (1 - alpha) + clceColor.r * alpha);     // Red
+                pixels[pixelIndex + 1] = Math.round(pixels[pixelIndex + 1] * (1 - alpha) + clceColor.g * alpha); // Green
+                pixels[pixelIndex + 2] = Math.round(pixels[pixelIndex + 2] * (1 - alpha) + clceColor.b * alpha); // Blue
+              }
+            }
+          }
+          
+          // Apply the modified image data back to canvas
+          ctx.putImageData(imageData, 0, 0);
+          
+          console.log('Applied color to shirt area, avoiding face region');
+          
+          // Display status information
+          ctx.font = '16px Arial';
           ctx.fillStyle = 'white';
+          ctx.strokeStyle = 'black';
+          ctx.lineWidth = 2;
+          ctx.textAlign = 'left';
+          
+          const statusText = `CLCE Fiber Simulation - Stretch: ${(currentStretch * 100).toFixed(0)}%`;
+          const colorText = `Color: RGB(${clceColor.r}, ${clceColor.g}, ${clceColor.b})`;
+          
+          ctx.strokeText(statusText, 10, 30);
+          ctx.fillText(statusText, 10, 30);
+          ctx.strokeText(colorText, 10, 55);
+          ctx.fillText(colorText, 10, 55);
+          
+          console.log('Successfully applied CLCE color effect');
+        } else {
+          console.log('No person detected, drawing original image');
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          
+          // Add text prompt informing user no person detected
+          ctx.font = '18px Arial';
+          ctx.fillStyle = 'white';
+          ctx.strokeStyle = 'black';
+          ctx.lineWidth = 2;
           ctx.textAlign = 'center';
-          ctx.fillText('未檢測到人體，請調整姿勢或光線', canvas.width / 2, 30);
+          ctx.strokeText('No person detected, please adjust your position or lighting', canvas.width / 2, 40);
+          ctx.fillText('No person detected, please adjust your position or lighting', canvas.width / 2, 40);
         }
       } catch (error) {
-        console.error('處理幀時出錯:', error);
-        // 即使出錯，繪製原始幀，確保用戶仍會看到相機畫面
+        console.error('Error processing frame:', error);
+        // Even if error occurs, draw original frame to ensure user still sees camera feed
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       }
     } else {
-      console.log('模型未加載，僅顯示原始相機畫面');
+      console.log('Model not loaded, showing raw camera feed only');
+      // Always draw the video first
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       
-      // 添加文字提示，告知用戶模型未加載
-      ctx.font = '20px Arial';
+      // Add text prompt informing user model not loaded
+      ctx.font = '18px Arial';
       ctx.fillStyle = 'white';
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 3;
       ctx.textAlign = 'center';
-      ctx.fillText('等待AI模型加載...', canvas.width / 2, 30);
+      ctx.strokeText('Waiting for AI model to load...', canvas.width / 2, 40);
+      ctx.fillText('Waiting for AI model to load...', canvas.width / 2, 40);
     }
     
-    // 繼續處理後續幀
-    requestAnimationFrame(processFrame);
+    // Continue processing subsequent frames
+    setIsProcessing(false);
+    if (isStreaming) {
+      setTimeout(() => requestAnimationFrame(processFrame), 33); // ~30 FPS
+    }
   };
   
-  // 啟動相機處理函數的替代方法，以確保它真的被調用
+  // Ensure frame processing continues
   useEffect(() => {
-    let frameRequestId = null;
+    let timeoutId = null;
     
-    if (isStreaming && videoRef.current) {
-      console.log('啟動幀處理循環');
-      const startProcessing = () => {
-        frameRequestId = requestAnimationFrame(processFrame);
-      };
+    if (isStreaming && videoRef.current && canvasRef.current && !isProcessing) {
+      console.log('Starting frame processing loop');
       
-      startProcessing();
+      // Start after a delay to ensure video is ready
+      timeoutId = setTimeout(() => {
+        if (isStreaming && videoRef.current && canvasRef.current) {
+          processFrame();
+        }
+      }, 200);
     }
     
     return () => {
-      // 清理效果
-      if (frameRequestId) {
-        console.log('清理幀處理循環');
-        cancelAnimationFrame(frameRequestId);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
       }
     };
   }, [isStreaming]);
   
   return (
     <div className="clothing-color-changer">
-      <h2>Petrichor</h2>
+      <h2>CLCE Fiber Simulation</h2>
       
-      <div className="controls">
+      {isStreaming && (
+        <div className="controls">
+          <div className="stretch-indicator">
+            <span>Stretch Level: {(stretchFactor * 100).toFixed(0)}%</span>
+            <div className="stretch-bar">
+              <div 
+                className="stretch-fill" 
+                style={{ width: `${stretchFactor * 100}%` }}
+              ></div>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {isStreaming && (
+        <div className="model-status">
+          Model Status: {modelStatus}
+        </div>
+      )}
+      
+      {cameraError && (
+        <div className="error-message alert alert-danger">
+          {cameraError}
+          {cameraError.includes('interrupted') && (
+            <div className="interrupted-error-help">
+              <p><strong>Playback Interruption Solutions:</strong></p>
+              <ol>
+                <li>Please completely refresh the page (press F5 or ⌘+R)</li>
+                <li>Wait for the page to fully load</li>
+                <li>Do not interact with other page elements</li>
+                <li>Click the "Start Camera" button directly</li>
+                <li>If the problem persists, try using a different browser</li>
+              </ol>
+            </div>
+          )}
+          <button 
+            className="debug-btn"
+            onClick={() => setShowDebugInfo(!showDebugInfo)}
+          >
+            {showDebugInfo ? 'Hide Diagnostic Info' : 'Show Diagnostic Info'}
+          </button>
+          
+          {showDebugInfo && (
+            <div className="debug-info">
+              <h4>Browser Diagnostic Information</h4>
+              <pre>
+                {JSON.stringify(getBrowserInfo(), null, 2)}
+              </pre>
+              <p>Please ensure you:</p>
+              <ol>
+                <li>Use the latest version of Chrome, Firefox, or Safari browser</li>
+                <li>Access this website via HTTPS or localhost</li>
+                <li>Have granted camera permissions to your browser</li>
+                <li>Have a working camera device</li>
+              </ol>
+            </div>
+          )}
+        </div>
+      )}
+      
+      <div className="video-container">
+        {/* Hidden video element for processing */}
+        <video 
+          ref={videoRef}
+          playsInline
+          muted
+          style={{ 
+            display: 'none'
+          }}
+          onCanPlay={() => {
+            console.log('Video can be played');
+          }}
+        />
+        {/* Main canvas for displaying the processed video */}
+        <canvas 
+          ref={canvasRef} 
+          className="output-canvas"
+        />
+        
+        {isStreaming && !model && (
+          <div className="loading-model-overlay">
+            <p>Loading AI model, please wait...</p>
+            <p>You should already be able to see the camera feed, but the color changing functionality needs to wait for the AI model to finish loading</p>
+          </div>
+        )}
+      </div>
+      
+      <div className="camera-controls">
         {isCameraAvailable ? (
           <button 
             onClick={isStreaming ? stopCamera : startCamera}
@@ -405,124 +560,21 @@ const ClothingColorChanger = () => {
             Camera not available
           </button>
         )}
-        
-        {isStreaming && (
-          <div className="color-options">
-            <span>Choose Color: </span>
-            <button 
-              className={`color-btn red ${colorOption === 'red' ? 'active' : ''}`}
-              onClick={() => setColorOption('red')}
-            >
-              Red
-            </button>
-            <button 
-              className={`color-btn yellow ${colorOption === 'yellow' ? 'active' : ''}`}
-              onClick={() => setColorOption('yellow')}
-            >
-              Yellow
-            </button>
-          </div>
-        )}
       </div>
-      
-      {isStreaming && (
-        <div className="model-status">
-          模型狀態: {modelStatus}
-        </div>
-      )}
-      
-      {cameraError && (
-        <div className="error-message alert alert-danger">
-          {cameraError}
-          {cameraError.includes('interrupted') && (
-            <div className="interrupted-error-help">
-              <p><strong>播放中斷問題解決建議:</strong></p>
-              <ol>
-                <li>請完全刷新頁面 (按F5或⌘+R)</li>
-                <li>等待頁面完全載入</li>
-                <li>不要與頁面其他元素互動</li>
-                <li>直接點擊"Start Camera"按鈕</li>
-                <li>如果問題仍然存在，請嘗試使用不同的瀏覽器</li>
-              </ol>
-            </div>
-          )}
-          <button 
-            className="debug-btn"
-            onClick={() => setShowDebugInfo(!showDebugInfo)}
-          >
-            {showDebugInfo ? '隱藏診斷信息' : '顯示診斷信息'}
-          </button>
-          
-          {showDebugInfo && (
-            <div className="debug-info">
-              <h4>瀏覽器診斷信息</h4>
-              <pre>
-                {JSON.stringify(getBrowserInfo(), null, 2)}
-              </pre>
-              <p>請確保您：</p>
-              <ol>
-                <li>使用最新版本的Chrome、Firefox或Safari瀏覽器</li>
-                <li>通過HTTPS或localhost訪問本網站</li>
-                <li>已允許瀏覽器的相機權限</li>
-                <li>設備有可用的攝像頭</li>
-              </ol>
-            </div>
-          )}
-        </div>
-      )}
-      
-      <div className="video-container">
-        {/* 3️⃣ 調試時讓視頻保持可見，但縮小 */}
-        <video 
-          ref={videoRef}
-          playsInline
-          muted
-          style={{ 
-            width: 160,
-            height: 120,
-            position: 'absolute',
-            bottom: 8,
-            right: 8,
-            border: '2px solid #fff',
-            zIndex: 10
-          }}
-          onCanPlay={() => {
-            console.log('視頻可以播放了');
-          }}
-        />
-        {/* 2️⃣ Canvas 已在 CSS 中設置明確的尺寸和背景色 */}
-        <canvas 
-          ref={canvasRef} 
-          className="output-canvas"
-        />
-        
-        {isStreaming && !model && (
-          <div className="loading-model-overlay">
-            <p>正在加載 AI 模型，請稍候...</p>
-            <p>您應該已經可以看到相機畫面，但顏色變換功能需要等待 AI 模型加載完成</p>
-          </div>
-        )}
-      </div>
-      
-      {!isStreaming && !cameraError && (
-        <div className="instructions">
-          <p>點擊 "Start Camera" 按鈕啟用相機和衣物顏色變換功能。</p>
-          <p>請確保站在相機前，讓您的上半身清晰可見。</p>
-        </div>
-      )}
       
       {isStreaming && (
         <div className="camera-tips">
-          <h3>使用提示</h3>
+          <h3>Usage Tips</h3>
           <ul>
-            <li>確保您站在明亮的環境中</li>
-            <li>穿著與背景明顯不同顏色的衣物</li>
-            <li>調整您與相機的距離，使上半身清晰可見</li>
-            <li>如果無法檢測到衣物，可嘗試改變姿勢或位置</li>
+            <li>Ensure you are in a well-lit environment</li>
+            <li>Wear clothing that contrasts clearly with the background</li>
+            <li>Adjust your distance from the camera to simulate stretching</li>
+            <li>Move closer to increase "stretch" and see more color change</li>
+            <li>The color progresses: Red → Orange → Yellow → Green → Blue → Violet</li>
           </ul>
-          <div className="debug-info">
-            <p><strong>技術說明:</strong> 此演示使用 TensorFlow.js 和 BodyPix 模型，將檢測您上半身的衣物(胸部區域，索引13和14)，並將其顏色更改為紅色或黃色</p>
-          </div>
+          {/* <div className="debug-info">
+            <p><strong>Technical Note:</strong> This demo uses TensorFlow.js and BodyPix model to detect your torso/clothing area (body part index 8), and changes its color based on your distance from the camera to simulate CLCE fiber stretch response</p>
+          </div> */}
         </div>
       )}
     </div>
