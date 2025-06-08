@@ -138,7 +138,7 @@
   max-height: 250px;
   object-fit: contain;
   border-radius: 12px;
-  background-color: #d9fff9;
+  background-color: #efb4d5;
 }
 
 .page {
@@ -185,7 +185,7 @@
   --background: #c3e48d;
 }
 .folder .tab:nth-of-type(5), .folder .contentInner:nth-of-type(5) {
-  --background: #a48de4;
+  --background: #ac5feb;
 }
 
 .folder .tab {
