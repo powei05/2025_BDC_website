@@ -64,3 +64,25 @@
   pointer-events: none; /* just in case */
 }
 
+@keyframes arrowFloat {
+  0%   { transform: translateY(0) rotate(0deg); }
+  50%  { transform: translateY(-30px) rotate(15deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Animated elements — non-interactive by default */
+:global(#arrow1_Studio),
+:global(#arrow2_Studio) {
+  transform-box: fill-box;
+  transform-origin: center;
+  pointer-events: none; /* ensures they don't block clicks */
+}
+
+:global(#arrow1_Studio) {
+  animation: arrowFloat 3s ease-in-out 0s infinite alternate;
+}
+
+:global(#arrow2_Studio) {
+  animation: arrowFloat 4s ease-in-out 0.5s infinite alternate;
+}
+

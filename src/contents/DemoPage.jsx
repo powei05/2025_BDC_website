@@ -1,7 +1,8 @@
-import React from 'react';
+
 import { ClothingColorChanger } from '../components';
 import styles from './DemoPage.module.css'; 
 import { useNavigate } from 'react-router-dom';
+import inkButtonImg from '../../img/InkButton.svg';
 
 const DemoPage = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const DemoPage = () => {
               className={styles.completeButton}
               onClick={() => navigate('/overview')}
             >
-              COMPLETE
+              <img src={inkButtonImg} alt="Complete" />
             </button>
 
             <div className="mt-5">

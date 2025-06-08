@@ -15,7 +15,7 @@ export default function DotNavbar() {
     { name: "Idea", path: "/idea", icon: ideaGif },
     { name: "Studio", path: "/dancestudio", icon: dsGif },
     { name: "Theater", path: "/pov", icon: theaterGif },
-    { name: "Description", path: "/description", icon: conceptGif },
+    { name: "Future", path: "/description", icon: conceptGif },
   ];
 
   const styles = {

@@ -5,57 +5,80 @@ import styles from './Clce.module.css';
 import hydrogelImg from '../../img/gel.jpg';
 import cotton from '../../img/cotton.jpg';
 import inkButtonImg from '../../img/InkButton.svg';
-
+import materialx from '../../img/stan.png';
 const tabs = [
   {
     id: 'tab-1',
-    label: 'Work stuff',
-    pic: hydrogelImg,
-    pictxt: '圖片標題 2',
+    label: 'Background',
+    pic: materialx,
+    pictxt: 'Adobe\'s animated dress',
     content: (
       <>
-        <p>Productize. Optics accountable talk. Thought shower. High performance keywords market-facing drink from the firehose, or you better eat a reality sandwich before you walk back in that boardroom, but accountable talk knowledge process outsourcing.</p>
-        <p>What's our go to market strategy? cross functional teams enable out of the box brainstorming nor zeitgeist viral engagement. Deep dive. Organic growth quick sync, feed the algorithm.</p>
-        <p>Productize. Optics accountable talk. Thought shower. High performance keywords market-facing drink from the firehose, or you better eat a reality sandwich before you walk back in that boardroom, but accountable talk knowledge process outsourcing.</p>
-        <p>What's our go to market strategy? cross functional teams enable out of the box brainstorming nor zeitgeist viral engagement. Deep dive. Organic growth quick sync, feed the algorithm.</p>
-        <p>Productize. Optics accountable talk. Thought shower. High performance keywords market-facing drink from the firehose, or you better eat a reality sandwich before you walk back in that boardroom, but accountable talk knowledge process outsourcing.</p>
-        <p>What's our go to market strategy? cross functional teams enable out of the box brainstorming nor zeitgeist viral engagement. Deep dive. Organic growth quick sync, feed the algorithm.</p>     
+        <p>In 2023, Adobe introduced a new color changing and animated dress. Adobe used an electroactive material, commonly used on smart windows, called polymer dispersed liquid crystal (PDLC). The color and animation can be activated with a remote. </p>
+        <br/>
+        <p>However, the color pallet of the dress is very limited. It is fragile and prone to damage. It is stiff and the transitions aren’t as smoothed as imagined. It also required eclectic power to function.</p>
+        <br/>
+        <p>At the same time, Anrealage launched their UV activated colour changing collection at the Paris Fashion Week 2023. The collection faces the same problems with Adobe. It is fragile, it requires power, and UV can be potentially dangerous. Worst of all, a single garment is limited to a single color palette. </p>
+        <br/>
+        <p>Our textile provides a color-changing fabric that doesn’t require electric power and allows for a more organic presentation of the garment. </p>
       </>
     )
   },
   {
     id: 'tab-2',
-    label: 'Food',
+    label: 'CLCE Fiber',
     pic: hydrogelImg,
-    pictxt: '圖片標題 2',
+    pictxt: 'Cholesteric Liquid Crystal Elastomer (CLCE)',
     content: (
       <>
-        <p>I love cheese, especially the big cheese gouda. Monterey jack red leicester roquefort cheese and wine fromage frais smelly cheese melted cheese dolcelatte. Fromage smelly cheese manchego paneer cheese and wine danish fontina macaroni cheese red leicester.</p>
-        <p>Stilton fondue queso emmental when the cheese comes out everybody's happy croque monsieur queso paneer. Say cheese pecorino swiss boursin halloumi cottage cheese taleggio boursin.</p>
+        <p>CLCE fibers are inspired by cephalopods that use pressure to apply changes to  their mechanochromic fibers to change the wavelengths at which they absorb and reflect light. This allows the stretch of the fibers to determine color changes. </p>
+        <br/>
+        <p>Dancers control the pressure of each stretch, guiding colors that emerge in the garment. Dancers can utilize this to enhance their performance by using colors to highlight moments in the performance. </p>
+        <br/>
+        <p>The color change can be customized through Cholesteric Pitch Tuning, which is treatment of the fibers via UV light in the manufacturing stage that allows for specification of CLCE fiber color range.</p>
       </>
     )
   },
   {
     id: 'tab-3',
-    label: 'Baking',
+    label: 'Hydrogel fiber',
     pic: cotton,
-    pictxt: '圖片標題 2',
+    pictxt: 'hydrogel',
     content: (
       <>
-        <p>Cupcake ipsum dolor sit amet jujubes tart. Tiramisu icing gingerbread halvah cake. Marzipan cake soufflé cookie brownie ice cream cupcake. Dragée croissant bonbon ice cream oat cake jelly cookie. Wafer candy dessert jelly jelly-o.</p>
-        <p>Oat cake donut powder pastry wafer brownie cupcake caramels bear claw. Bonbon caramels oat cake cake shortbread. Cake cheesecake candy icing bear claw marshmallow icing jelly. Halvah biscuit pudding danish cookie bonbon gummies.</p>
+        <p>Hydrogel are flexible, absorbent, cooling, and biocompatible, making it a suitable choice for skintight performance wear. Hydrogel assists in sweat absorption, keeping dancers comfortable within their garments. Hydrogel can also function as a cooling medium to prevent dancers from overheating.</p>
+        <br/>
+        <p>Hydrogel fibers can detect certain electrical/ion conduction properties, thus allowing them to work like sensors. It can be applied to detect different stimuli like pressure, temperature, and most especially ph. Hydrogel fibre is designed to incorporate ph-sensitive fluorescent dyes and Rhodamine B.</p>
+        <br/>
+        <p>Contact with the pH of sweat causes Rhodamine B molecules to change and increases the intensity of fluorescence the dye emits. The fluorescence intensity corresponds to changing pH levels. The signal is detected and translated into signals that reflect the level of pH detected in our sweat. The initial pH of sweat is at 7.1 to 7.4. Lower pH levels (4 to 5) reflect the increased concentration of sodium in our sweat, indicating dehydration of the body. Hydrogel can inform performers’ their current pH levels and inform them to rehydrate their bodies.</p>
       </>
     )
   },
   {
     id: 'tab-4',
-    label: 'Cat',
+    label: 'Cotton',
     pic: cotton,
-    pictxt: '圖片標題 2',
+    pictxt: 'Organic Cotton',
     content: (
       <>
-        <p>Miaow then turn around and show you my bum flee in terror at cucumber discovered on floor. Terrorize the hundred-and-twenty-pound rottweiler and steal his bed, not sorry sleep on dog bed, force dog to sleep on floor and grab pompom in mouth and put in water dish cats are fats i like to pets them they like to meow back present belly, scratch hand when stroked.</p>
-        <p>Bleghbleghvomit my furball really tie the room together love asdflkjaertvlkjasntvkjn (sits on keyboard) but bawl under human beds.</p>
+        <p>Cotton was chosen to ensure the performers’ comfort while supporting sustainability. It is natural, breathable, and low maintenance fibre that is odour-free, versatile, and environmentally friendly. </p>
+        <br/>
+        <p>Cotton contrasts the heavy tech in the other two fibres, creating a balance between nature and tech. Its versatility allows it to be woven into different fabrics with a variety of functions. We plan to source these organic cottons from fair trade initiatives like Better Cotton Initiative (BCI). BCI was established to help grow cotton sustainably, ensure farm workers benefit from their harvests, and empower women to form an equal farming community. </p>
+        <br/>
+        <p>We can contact either organization to source our cotton. Tainan Enterprises (台南企業) is premier clothing manufacturer that is certified by Fair Trade and part of the BCI. They are a leading business in Taiwan on eco-conscious manufacturing. Tainan Enterprises aims to source sustainable and ethically sourced materials for their client’s requests. Their factories around the world benefit from these initiatives. </p>
+      </>
+    )
+  },
+  {
+    id: 'tab-5',
+    label: 'Knit',
+    pic: hydrogelImg,
+    pictxt: 'Knitting Pattern',
+    content: (
+      <>
+        <p>The garment is formed using the plain knit technique. Plain knit uses a single strand of fibre and loops on itself to form the fabric. </p>
+        <br/>
+        <p>The base of our garment is formed with cotton fibres. The Yánshēn textile is formed from CLCE and Hydrogel fibres. The textiles are patterns interwoven with the cotton base. The flow of pattern is inspired by natural movement of our muscles. Waves come to form around the hands, body, and legs following the flow of the muscles. </p>
       </>
     )
   }

@@ -1,9 +1,10 @@
+
 .section {
   
   padding: 4rem;
   max-width: 800px;
-  margin-top: 1rem;         
-  margin-bottom: 10rem;      
+  margin-top:55rem;         
+  margin-bottom: 5rem;      
   background-color: #fffdfdaa;
   border-radius: 8px;
   line-height: 1.75;
@@ -75,7 +76,6 @@ hr{
   padding: 2rem 1rem;
   box-sizing: border-box;
 }
-
 
 .imageContainer {
   width: 100%;
