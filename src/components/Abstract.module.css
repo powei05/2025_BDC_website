@@ -41,7 +41,7 @@ hr{
 
 .content p {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(4px);
 }
 
 .completeButton {
@@ -90,4 +90,56 @@ hr{
   width: 100%;
   height: 100%;
   object-fit: contain;   /* 關鍵：填滿容器並裁切 */
+}
+
+/* ------- RWD: 手機畫面調整 ------- */
+@media (max-width: 768px) {
+  .section {
+    padding: 2rem 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 5rem;
+    border-radius: 4px;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .subheading {
+    font-size: 1rem;
+    text-align:center;
+  }
+
+  p {
+    font-size: 0.95rem;
+    text-indent: 1.5em;
+    line-height: 1.6;
+  }
+
+  hr {
+    height: 2px;
+    margin: 1.5rem 0;
+  }
+
+  .completeButton img {
+    width: 5rem; /* 小一點不擋字 */
+  }
+
+  .imageRow {
+    margin-top: 14rem;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0.5rem;
+    gap: 1rem;
+  }
+
+  .imageContainer {
+    max-width: 90vw;
+    aspect-ratio: 1 / 1;
+  }
+
+  .content p {
+    transform: translateY(2px); /* 縮小進場動畫位移 */
+  }
 }

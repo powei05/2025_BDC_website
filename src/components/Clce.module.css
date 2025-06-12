@@ -342,3 +342,68 @@ box-shadow: none;
     z-index: 999;
   }
 }
+
+@media (max-width: 480px) {
+
+  /* 整份卡片整體再縮 － 左右各留約 1.25rem 空白 */
+  .folder {
+    margin: 5rem auto 3rem auto;
+    max-width: 60%;        /* 原 95% → 88% 讓中央內容更窄 */
+    padding: 0 0.5rem;     /* 內邊也補 0.5rem 緩衝 */
+  }
+
+  /* Tabs 列 */
+  .tabs {
+    padding: 0.5rem 0;
+    margin: 0 0.25rem;     /* 再擠一點邊 */
+  }
+  .tab {
+    margin: 0 0.75rem;     /* 原 1rem → 0.75rem */
+  }
+  .tab span {
+    font-size: 0.8rem;     /* 再縮字 */
+    padding: 2px 6px;
+    min-width: 3.2rem;
+  }
+
+  /* 內容區塊 */
+  .contentInner {
+    flex-direction: column;
+    padding: 0.75rem;
+    gap: 0.75rem;          /* 縮段落間距 */
+    height: auto;
+  }
+
+  .leftPanel,
+  .rightPanel {
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
+  .image {
+    max-height: 150px;     /* 再小一點 */
+    border-radius: 8px;
+  }
+
+  .caption {
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+  }
+
+  .page {
+    font-size: 0.88rem;    /* 縮字、行距也略小 */
+    line-height: 1.55;
+    padding: 0.9rem 0.6rem;
+    max-height: 55vh;      /* 避免一整段撐到底，仍可滑 */
+    overflow-y: auto;
+  }
+
+  /* 完成 / Next 按鈕 */
+  .completeButton {
+    bottom: 0.6rem;
+    right: 0.6rem;
+  }
+  .completeButton img {
+    width: 3.8rem;         /* 再小一格，不擋文字 */
+  }
+}

@@ -9,7 +9,7 @@ import materialx from '../../img/backgroundx.gif';
 import materialy from '../../img/hydrogel.png';
 import materialz from '../../img/cotton2.jpg';
 import materiala from '../../img/knittingPattern.png';
-import materialb from '../../img/MITCLCE.png';
+import materialb from '../../img/clce_gif.gif';
 const tabs = [
   {
     id: 'tab-1',

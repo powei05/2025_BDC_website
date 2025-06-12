@@ -1,5 +1,5 @@
 export { default as Home } from './Home.jsx';
-export { default as Description } from './Descriptions.jsx';
+export { default as Description } from './Description.jsx';
 export { default as TeamMembers } from './TeamMembers.jsx';
 export { default as Pov } from './Pov.jsx';
 export { default as DemoPage } from './DemoPage.jsx';

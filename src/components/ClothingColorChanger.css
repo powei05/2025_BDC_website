@@ -283,3 +283,11 @@
 .camera-tips li {
   margin-bottom: 5px;
 } 
+
+@media (max-width: 480px) {
+  .clothing-color-changer {
+    margin-top: 1110px; /* 你可以依需求調整數值，如 80px、100px 等 */
+  }
+
+  
+}

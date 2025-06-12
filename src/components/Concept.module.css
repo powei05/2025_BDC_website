@@ -4,9 +4,10 @@
   align-items: center;
   height: 100vh;
   background-image: url("../../img/concept_bg.gif");
-  background-size: cover  ; /* 或者試試 cover，根據需求選擇 */
+  background-size: cover;
   background-position: center;
-  background-repeat: no-repeat; /* 防止圖片重複 */
+  background-repeat: no-repeat;
+  padding: 1rem;
 }
 
 .conceptLogo {
@@ -14,8 +15,40 @@
   justify-content: center;
   align-items: center;
   height: 35vh;
+  width: auto;
   background-image: url("../../img/concept_logo.gif");
-  background-size: contain  ; /* 或者試試 cover，根據需求選擇 */
+  background-size: contain;
   background-position: center;
-  background-repeat: no-repeat; /* 防止圖片重複 */
+  background-repeat: no-repeat;
 }
+
+.conceptButton {
+  height: 800px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* ---------- RWD: 手機螢幕 ---------- */
+@media (max-width: 768px) {
+  .conceptContainer {
+    height: auto;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    background-size: cover;
+  }
+
+  .conceptLogo {
+    height: 25vh;
+    width: 100%;
+    background-size: contain;
+  }
+
+  .conceptButton {
+    height: auto;
+    width: 100%;
+    max-height: 300px;
+  }
+}
+
