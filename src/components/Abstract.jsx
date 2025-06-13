@@ -38,8 +38,8 @@ useEffect(() => {
   });
 }, []);
   return (
-    <div>
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <div className={styles.abcontainer}>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <div className={styles.imageRow}>
         <div className={styles.imageContainer}>
           <img src={conceptgif} alt="Visual 1" className={styles.coveredImage} />

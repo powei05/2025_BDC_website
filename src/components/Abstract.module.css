@@ -1,6 +1,10 @@
+
 .section {
   
-  padding: 4rem;
+  padding-right: 4rem;
+  padding-bottom: 4rem;
+  padding-left: 4rem;
+  padding-top: 4rem;
   max-width: 800px;
   margin-top: 1rem;         
   margin-bottom: 10rem;      
@@ -72,6 +76,7 @@ hr{
   flex-wrap: wrap;
   max-width: 800px;
   margin: 0 auto;
+  margin-top: 7rem;
   padding: 2rem 1rem;
   box-sizing: border-box;
 }
