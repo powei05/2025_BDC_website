@@ -16,7 +16,7 @@ services:
 
   # Production environment
   app-prod:
-    image: wei05/bdc2025:20240613     
+    image: wei05/bdc2025:20240616     
     build:                        
       context: .
       dockerfile: Dockerfile
